@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package com.example.android.uamp.musicplayer;
+package com.example.android.uamp;
 
 import android.content.Context;
 
-import com.example.android.uamp.R;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.OptionsProvider;
 import com.google.android.gms.cast.framework.SessionProvider;

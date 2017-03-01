@@ -56,7 +56,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
     public static final String ACTION_NEXT = "com.example.android.uamp.next";
     public static final String ACTION_STOP_CASTING = "com.example.android.uamp.stop_cast";
 
-    private final com.example.android.uamp.MusicService mService;
+    private final MusicService mService;
     private MediaSessionCompat.Token mSessionToken;
     private MediaControllerCompat mController;
     private MediaControllerCompat.TransportControls mTransportControls;
@@ -77,7 +77,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
 
     private boolean mStarted = false;
 
-    public MediaNotificationManager(com.example.android.uamp.MusicService service) throws RemoteException {
+    public MediaNotificationManager(MusicService service) throws RemoteException {
         mService = service;
         updateSessionToken();
 
@@ -168,9 +168,9 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 mTransportControls.skipToPrevious();
                 break;
             case ACTION_STOP_CASTING:
-                Intent i = new Intent(context, com.example.android.uamp.MusicService.class);
-                i.setAction(com.example.android.uamp.MusicService.ACTION_CMD);
-                i.putExtra(com.example.android.uamp.MusicService.CMD_NAME, com.example.android.uamp.MusicService.CMD_STOP_CASTING);
+                Intent i = new Intent(context, MusicService.class);
+                i.setAction(MusicService.ACTION_CMD);
+                i.putExtra(MusicService.CMD_NAME, MusicService.CMD_STOP_CASTING);
                 mService.startService(i);
                 break;
             default:
@@ -288,7 +288,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
             // it can actually be any valid Android Uri formatted String.
             // async fetch the album art icon
             String artUrl = description.getIconUri().toString();
-            art = com.example.android.uamp.AlbumArtCache.getInstance().getBigImage(artUrl);
+            art = AlbumArtCache.getInstance().getBigImage(artUrl);
             if (art == null) {
                 fetchArtUrl = artUrl;
                 // use a placeholder art while the remote art is being downloaded
@@ -312,7 +312,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
                 .setLargeIcon(art);
 
         if (mController != null && mController.getExtras() != null) {
-            String castName = mController.getExtras().getString(com.example.android.uamp.MusicService.EXTRA_CONNECTED_CAST);
+            String castName = mController.getExtras().getString(MusicService.EXTRA_CONNECTED_CAST);
             if (castName != null) {
                 String castInfo = mService.getResources()
                         .getString(R.string.casting_to_device, castName);
@@ -376,7 +376,7 @@ public class MediaNotificationManager extends BroadcastReceiver {
 
     private void fetchBitmapFromURLAsync(final String bitmapUrl,
                                          final NotificationCompat.Builder builder) {
-        com.example.android.uamp.AlbumArtCache.getInstance().fetch(bitmapUrl, new com.example.android.uamp.AlbumArtCache.FetchListener() {
+        AlbumArtCache.getInstance().fetch(bitmapUrl, new AlbumArtCache.FetchListener() {
             @Override
             public void onFetched(String artUrl, Bitmap bitmap, Bitmap icon) {
                 if (mMetadata != null && mMetadata.getDescription().getIconUri() != null &&
