@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package com.example.android.uamp;
+package com.example.android.uamp.musicplayer;
 
 import android.content.Context;
 
+import com.example.android.uamp.R;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.OptionsProvider;
 import com.google.android.gms.cast.framework.SessionProvider;
@@ -32,6 +33,7 @@ public class CastOptionsProvider implements OptionsProvider {
     @Override
     public CastOptions getCastOptions(Context context) {
         return new CastOptions.Builder()
+
                 .setReceiverApplicationId(context.getString(R.string.cast_application_id))
                 .build();
     }
