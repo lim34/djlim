@@ -20,7 +20,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -41,7 +40,6 @@ import com.example.android.uamp.playback.Playback;
 import com.example.android.uamp.playback.PlaybackManager;
 import com.example.android.uamp.playback.QueueManager;
 import com.example.android.uamp.ui.NowPlayingActivity;
-import com.example.android.uamp.utils.CarHelper;
 import com.example.android.uamp.utils.LogHelper;
 import com.example.android.uamp.utils.TvHelper;
 import com.example.android.uamp.utils.WearHelper;
@@ -212,7 +210,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
         mSession.setSessionActivity(pi);
 
         mSessionExtras = new Bundle();
-        CarHelper.setSlotReservationFlags(mSessionExtras, true, true, true);
         WearHelper.setSlotReservationFlags(mSessionExtras, true, true);
         WearHelper.setUseBackgroundFromTheme(mSessionExtras, true);
         mSession.setExtras(mSessionExtras);
@@ -234,7 +231,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
 
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
 
-        registerCarConnectionReceiver();
     }
 
     /**
@@ -271,7 +267,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
     @Override
     public void onDestroy() {
         LogHelper.d(TAG, "onDestroy");
-        unregisterCarConnectionReceiver();
         // Service is being killed, so make sure we release our resources
         mPlaybackManager.handleStopRequest(null);
         mMediaNotificationManager.stopNotification();
@@ -300,14 +295,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
                     + "Returning empty browser root so all apps can use MediaController."
                     + clientPackageName);
             return new MediaBrowserServiceCompat.BrowserRoot(MEDIA_ID_EMPTY_ROOT, null);
-        }
-        //noinspection StatementWithEmptyBody
-        if (CarHelper.isValidCarPackage(clientPackageName)) {
-            // Optional: if your app needs to adapt the music library to show a different subset
-            // when connected to the car, this is where you should handle it.
-            // If you want to adapt other runtime behaviors, like tweak ads or change some behavior
-            // that should be different on cars, you should instead use the boolean flag
-            // set by the BroadcastReceiver mCarConnectionReceiver (mIsConnectedToCar).
         }
         //noinspection StatementWithEmptyBody
         if (WearHelper.isValidWearCompanionPackage(clientPackageName)) {
@@ -377,24 +364,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
     @Override
     public void onPlaybackStateUpdated(PlaybackStateCompat newState) {
         mSession.setPlaybackState(newState);
-    }
-
-    private void registerCarConnectionReceiver() {
-        IntentFilter filter = new IntentFilter(CarHelper.ACTION_MEDIA_STATUS);
-        mCarConnectionReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String connectionEvent = intent.getStringExtra(CarHelper.MEDIA_CONNECTION_STATUS);
-                mIsConnectedToCar = CarHelper.MEDIA_CONNECTED.equals(connectionEvent);
-                LogHelper.i(TAG, "Connection event to Android Auto: ", connectionEvent,
-                        " isConnectedToCar=", mIsConnectedToCar);
-            }
-        };
-        registerReceiver(mCarConnectionReceiver, filter);
-    }
-
-    private void unregisterCarConnectionReceiver() {
-        unregisterReceiver(mCarConnectionReceiver);
     }
 
     /**
