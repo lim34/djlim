@@ -41,8 +41,6 @@ import com.example.android.uamp.playback.PlaybackManager;
 import com.example.android.uamp.playback.QueueManager;
 import com.example.android.uamp.ui.NowPlayingActivity;
 import com.example.android.uamp.utils.LogHelper;
-import com.example.android.uamp.utils.TvHelper;
-import com.example.android.uamp.utils.WearHelper;
 import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.SessionManager;
@@ -210,8 +208,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
         mSession.setSessionActivity(pi);
 
         mSessionExtras = new Bundle();
-        WearHelper.setSlotReservationFlags(mSessionExtras, true, true);
-        WearHelper.setUseBackgroundFromTheme(mSessionExtras, true);
         mSession.setExtras(mSessionExtras);
 
         mPlaybackManager.updatePlaybackState(null);
@@ -220,13 +216,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
             mMediaNotificationManager = new MediaNotificationManager(this);
         } catch (RemoteException e) {
             throw new IllegalStateException("Could not create a MediaNotificationManager", e);
-        }
-
-        if (!TvHelper.isTvUiMode(this)) {
-            mCastSessionManager = CastContext.getSharedInstance(this).getSessionManager();
-            mCastSessionManagerListener = new CastSessionManagerListener();
-            mCastSessionManager.addSessionManagerListener(mCastSessionManagerListener,
-                    CastSession.class);
         }
 
         mMediaRouter = MediaRouter.getInstance(getApplicationContext());
@@ -295,12 +284,6 @@ public class MusicService extends MediaBrowserServiceCompat implements
                     + "Returning empty browser root so all apps can use MediaController."
                     + clientPackageName);
             return new MediaBrowserServiceCompat.BrowserRoot(MEDIA_ID_EMPTY_ROOT, null);
-        }
-        //noinspection StatementWithEmptyBody
-        if (WearHelper.isValidWearCompanionPackage(clientPackageName)) {
-            // Optional: if your app needs to adapt the music library for when browsing from a
-            // Wear device, you should return a different MEDIA ROOT here, and then,
-            // on onLoadChildren, handle it accordingly.
         }
 
         return new BrowserRoot(MEDIA_ID_ROOT, null);
