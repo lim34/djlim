@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnSong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="243dp"
+        android:onClick="myMusicWasClicked"
+        android:text="My Music" />
+
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnSong"
+        android:layout_alignTop="@+id/btnSong"
+        android:layout_marginTop="120dp"
+        android:text="Join" />
+
+    <TextView
+        android:id="@+id/txtPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="51dp"
+        android:text="Pin:"
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+    <TextView
+        android:id="@+id/txtLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="112dp"
+        android:text="MuSync"
+        android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+</RelativeLayout>
