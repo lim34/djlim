@@ -91,7 +91,8 @@ public class PhoneSync extends Activity {
                 WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment
                         .getListAdapter());
 
-                adapter.add(resourceType);
+                WiFiP2pService myService = new WiFiP2pService(resourceType);
+                adapter.add(myService);
                 adapter.notifyDataSetChanged();
                 Log.d(TAG, "onBonjourServiceAvailable " + instanceName);
             }

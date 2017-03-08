@@ -79,9 +79,6 @@ public class WiFiDirectServicesList extends ListFragment {
             return v;
         }
 
-        public void add(WifiP2pDevice resourceType) {
-            Log.d(TAG, "What ARE YOU " + WifiP2pDevice.CONNECTED);
-        }
     }
     public static String getDeviceStatus(int statusCode) {
         switch (statusCode) {
