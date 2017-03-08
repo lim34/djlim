@@ -33,7 +33,7 @@ public class WiFiDirectServicesList extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.join, container, false);
+        return inflater.inflate(R.layout.fragment_list, container, false);
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

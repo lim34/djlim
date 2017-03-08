@@ -19,6 +19,7 @@
         android:layout_alignStart="@+id/btnSong"
         android:layout_alignTop="@+id/btnSong"
         android:layout_marginTop="120dp"
+        android:onClick="joinWasClicked"
         android:text="Join" />
 
     <TextView

@@ -27,7 +27,12 @@ public class PhoneSync extends Activity {
     final HashMap<String, String> buddies = new HashMap<String, String>();
 
 
-    private void startRegistration() {
+    public PhoneSync(WifiP2pManager mManager, WifiP2pManager.Channel channel) {
+        this.mManager = mManager;
+        this.channel = channel;
+    }
+
+    public void startRegistration() {
         //  Create a string map containing information about your service.
         Map record = new HashMap();
         record.put("listenport", String.valueOf(SERVER_PORT));
@@ -48,16 +53,23 @@ public class PhoneSync extends Activity {
             public void onSuccess() {
                 // Command successful! Code isn't necessarily needed here,
                 // Unless you want to update the UI or add logging statements.
+                Log.d(TAG, "Device was registered successfully");
             }
 
             @Override
             public void onFailure(int arg0) {
-                // Command failed.  Check for P2P_UNSUPPORTED, ERROR, or BUSY
+                if (arg0 == WifiP2pManager.P2P_UNSUPPORTED) {
+                    Log.d(TAG, "register, P2P isn't supported on this device.");
+                } else if (arg0 == WifiP2pManager.ERROR) {
+                    Log.d(TAG, "register, Weird generic error");
+                }else if (arg0 == WifiP2pManager.BUSY) {
+                    Log.d(TAG, "register, Device is Busy");
+                }
             }
         });
     }
 
-    private void discoverService() {
+    public void discoverService() {
         WifiP2pManager.DnsSdTxtRecordListener txtListener = new WifiP2pManager.DnsSdTxtRecordListener() {
             @Override
             /* Callback includes:
@@ -87,7 +99,7 @@ public class PhoneSync extends Activity {
                 // Add to the custom adapter defined specifically for showing
                 // wifi devices.
                 WiFiDirectServicesList fragment = (WiFiDirectServicesList) getFragmentManager()
-                        .findFragmentById(R.id.frag_peerlist);
+                        .findFragmentById(R.id.list_view);
                 WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment
                         .getListAdapter());
 
@@ -107,11 +119,19 @@ public class PhoneSync extends Activity {
             @Override
             public void onSuccess() {
                 // Success!
+                Log.d(TAG, "Device created service request successfully");
             }
 
             @Override
             public void onFailure(int code) {
                 // Command failed.  Check for P2P_UNSUPPORTED, ERROR, or BUSY
+                if (code == WifiP2pManager.P2P_UNSUPPORTED) {
+                    Log.d(TAG, "service, P2P isn't supported on this device.");
+                } else if (code == WifiP2pManager.ERROR) {
+                    Log.d(TAG, "service, Weird generic error");
+                }else if (code == WifiP2pManager.BUSY) {
+                    Log.d(TAG, "service, Device is Busy");
+                }
             }
         });
 
@@ -120,17 +140,18 @@ public class PhoneSync extends Activity {
             @Override
             public void onSuccess() {
                 // Success!
+                Log.d(TAG, "Device discovered other Services");
             }
 
             @Override
             public void onFailure(int code) {
                 // Command failed.  Check for P2P_UNSUPPORTED, ERROR, or BUSY
                 if (code == WifiP2pManager.P2P_UNSUPPORTED) {
-                    Log.d(TAG, "P2P isn't supported on this device.");
+                    Log.d(TAG, "discover, P2P isn't supported on this device.");
                 } else if (code == WifiP2pManager.ERROR) {
-                    Log.d(TAG, "Weird generic error");
+                    Log.d(TAG, "discover, Weird generic error");
                 }else if (code == WifiP2pManager.BUSY) {
-                    Log.d(TAG, "Device is Busy");
+                    Log.d(TAG, "discover, Device is Busy");
                 }
             }
         });

@@ -1,10 +1,10 @@
 package com.example.android.uamp;
 
 import android.content.Intent;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.android.uamp.PhoneSync.PhoneSync;
@@ -22,13 +22,17 @@ public class MainActivity extends AppCompatActivity {
 
     private static final Random rand = new Random();
     private static final String TAG = "MainActivity";
-    private PhoneSync connectP;
+    WifiP2pManager mManager;
+    WifiP2pManager.Channel channel;
+    PhoneSync connectP = new PhoneSync(mManager, channel);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogHelper.d(TAG, " Was started");
         setContentView(R.layout.activity_main);
+
+//        connectP.startRegistration();
         randomPin();
     }
 
@@ -37,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         newIntent = new Intent(this, MusicPlayerActivity.class);
         LogHelper.d(TAG, "changing to MusicPlayerActivity");
         startActivity(newIntent);
+    }
+
+    public void joinWasClicked(View v) {
+        connectP.discoverService();
     }
 
     public void randomPin() {

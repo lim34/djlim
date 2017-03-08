@@ -1,0 +1,7 @@
+# Created by .ignore support plugin (hsz.mobi)
+.gitignore
+.gradle/
+.idea/runConfigurations.xml
+.idea/workspace.xml
+gradle/wrapper/gradle-wrapper.jar
+wrapper/gradle-wrapper.jar
