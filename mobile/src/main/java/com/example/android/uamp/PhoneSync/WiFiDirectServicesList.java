@@ -7,6 +7,7 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.android.uamp.R;
+
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple ListFragment that shows the available services as published by the
  * peers
@@ -26,11 +30,11 @@ public class WiFiDirectServicesList extends ListFragment {
     interface DeviceClickListener {
         public void connectP2p(WiFiP2pService wifiP2pService);
     }
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        return inflater.inflate(R.layout.join, container, false);
-//    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.join, container, false);
+    }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -73,6 +77,10 @@ public class WiFiDirectServicesList extends ListFragment {
                 statusText.setText(getDeviceStatus(service.device.status));
             }
             return v;
+        }
+
+        public void add(WifiP2pDevice resourceType) {
+            Log.d(TAG, "What ARE YOU " + WifiP2pDevice.CONNECTED);
         }
     }
     public static String getDeviceStatus(int statusCode) {

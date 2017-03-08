@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.android.uamp.PhoneSync.PhoneSync;
 import com.example.android.uamp.ui.MusicPlayerActivity;
 import com.example.android.uamp.utils.LogHelper;
 
@@ -19,7 +21,8 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private static final Random rand = new Random();
-    private static final String TAG = "MainActivity" ;
+    private static final String TAG = "MainActivity";
+    private PhoneSync connectP;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
