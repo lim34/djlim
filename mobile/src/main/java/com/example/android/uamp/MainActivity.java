@@ -1,8 +1,11 @@
 package com.example.android.uamp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -22,19 +25,24 @@ public class MainActivity extends AppCompatActivity {
 
     private static final Random rand = new Random();
     private static final String TAG = "MainActivity";
-    WifiP2pManager mManager;
+    IntentFilter mIntentFilter;
     WifiP2pManager.Channel channel;
-    PhoneSync connectP = new PhoneSync(mManager, channel);
-
+    WifiP2pManager mManager;
+    PhoneSync connectP;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogHelper.d(TAG, " Was started");
         setContentView(R.layout.activity_main);
 
-//        connectP.startRegistration();
+        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
+        PhoneSync tempP = new PhoneSync(mManager, channel);
+        connectP = tempP;
+        connectP.startRegistration();
         randomPin();
     }
+
 
     public void myMusicWasClicked(View v) {
         Intent newIntent;
