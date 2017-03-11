@@ -285,9 +285,14 @@ public class MusicProvider {
         }
 
         if (MEDIA_ID_ROOT.equals(mediaId)) {
-            mediaItems.add(createBrowsableMediaItemForRoot(resources));
+            for (String genre : getGenres()) {
+                for (MediaMetadataCompat metadata : getMusicsByGenre(genre)) {
+                    mediaItems.add(createMediaItem(metadata));
+                }
+            }
+        }
 
-        } else if (MEDIA_ID_MUSICS_BY_GENRE.equals(mediaId)) {
+        else if (MEDIA_ID_MUSICS_BY_GENRE.equals(mediaId)) {
             for (String genre : getGenres()) {
                 mediaItems.add(createBrowsableMediaItemForGenre(genre, resources));
             }
@@ -343,5 +348,4 @@ public class MusicProvider {
                 MediaBrowserCompat.MediaItem.FLAG_PLAYABLE);
 
     }
-
 }
