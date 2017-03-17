@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 //        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
 //        PhoneSync tempP = new PhoneSync(mManager, channel);
 //        connectP = tempP;
-//        connectP.startRegistration();
+//        connectP.startRegistrationandDiscover();
         randomPin();
 
     }
@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void joinWasClicked(View v) {
-        //connectP.discoverService();
         Intent newIntent;
         newIntent = new Intent(this, PhoneSync.class);
         LogHelper.d(TAG, "changing to PhoneSync");

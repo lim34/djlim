@@ -35,6 +35,7 @@ public class PhoneSync extends Activity {
     WiFiDirectServicesList servicesList;
     private static final char[] SERVER_PORT = {7070};
     final HashMap<String, String> buddies = new HashMap<String, String>();
+    private final IntentFilter intentFilter = new IntentFilter();
 
 
     public PhoneSync(WifiP2pManager mManager, WifiP2pManager.Channel channel) {
@@ -51,19 +52,18 @@ public class PhoneSync extends Activity {
         setContentView(R.layout.phone_connect);
         Log.d(TAG, "Started the oncreate");
 
-//        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
-//        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
-//        intentFilter
-//                .addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
-//        intentFilter
-//                .addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+        intentFilter
+                .addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+        intentFilter
+                .addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
         mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
-        startRegistration();
         servicesList = new WiFiDirectServicesList();
         getFragmentManager().beginTransaction()
                 .add(R.id.container_root, servicesList, "services").commit();
-        discoverService();
+        startRegistrationandDiscover();
     }
     @Override
     protected void onRestart() {
@@ -89,7 +89,7 @@ public class PhoneSync extends Activity {
         super.onStop();
     }
 
-    public void startRegistration() {
+    public void startRegistrationandDiscover() {
         //  Create a string map containing information about your service.
         Map record = new HashMap();
         record.put("listenport", String.valueOf(SERVER_PORT));
@@ -124,6 +124,7 @@ public class PhoneSync extends Activity {
                 }
             }
         });
+        discoverService();
     }
 
     public void discoverService() {
@@ -161,12 +162,16 @@ public class PhoneSync extends Activity {
 //                        .add(R.id.frag_device, servicesList, "services").commit();
                 WiFiDirectServicesList fragment = (WiFiDirectServicesList) getFragmentManager()
                         .findFragmentByTag("services");
-                WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment.getListAdapter());
-
-                WiFiP2pService myService = new WiFiP2pService(resourceType);
-                adapter.add(myService);
-                adapter.notifyDataSetChanged();
-                Log.d(TAG, "onBonjourServiceAvailable " + instanceName);
+                if (fragment != null) {
+                    WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment.getListAdapter());
+                    WiFiP2pService myService = new WiFiP2pService();
+                    myService.device = resourceType;
+                    myService.instanceName = instanceName;
+                    myService.serviceRegistrationType = registrationType;
+                    adapter.add(myService);
+                    adapter.notifyDataSetChanged();
+                    Log.d(TAG, "onBonjourServiceAvailable " + instanceName);
+                }
             }
         };
 

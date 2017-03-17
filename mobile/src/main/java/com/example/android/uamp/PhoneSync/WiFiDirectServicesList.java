@@ -28,7 +28,7 @@ public class WiFiDirectServicesList extends ListFragment {
     WiFiDevicesAdapter listAdapter = null;
 
     interface DeviceClickListener {
-        public void connectP2p(WiFiP2pService wifiP2pService);
+        void connectP2p(WiFiP2pService wifiP2pService);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
