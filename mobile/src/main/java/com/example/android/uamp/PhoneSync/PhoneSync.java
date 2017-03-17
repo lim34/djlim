@@ -49,7 +49,7 @@ public class PhoneSync extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.phone_connect);
+        setContentView(R.layout.phonesync_main);
         Log.d(TAG, "Started the oncreate");
 
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
