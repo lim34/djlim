@@ -1,15 +1,24 @@
 package com.example.android.uamp.PhoneSync;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.content.Context;
+import android.content.IntentFilter;
 import android.net.wifi.p2p.WifiP2pDevice;
+import android.net.wifi.p2p.WifiP2pDeviceList;
+import android.net.wifi.p2p.WifiP2pInfo;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceInfo;
 import android.net.wifi.p2p.nsd.WifiP2pDnsSdServiceRequest;
+import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.example.android.uamp.PhoneSync.WiFiDirectServicesList.WiFiDevicesAdapter;
 import com.example.android.uamp.R;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +32,7 @@ public class PhoneSync extends Activity {
 
     WifiP2pManager mManager;
     WifiP2pManager.Channel channel;
+    WiFiDirectServicesList servicesList;
     private static final char[] SERVER_PORT = {7070};
     final HashMap<String, String> buddies = new HashMap<String, String>();
 
@@ -30,6 +40,53 @@ public class PhoneSync extends Activity {
     public PhoneSync(WifiP2pManager mManager, WifiP2pManager.Channel channel) {
         this.mManager = mManager;
         this.channel = channel;
+    }
+
+    public PhoneSync(){}
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.phone_connect);
+        Log.d(TAG, "Started the oncreate");
+
+//        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
+//        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
+//        intentFilter
+//                .addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION);
+//        intentFilter
+//                .addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
+        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
+        startRegistration();
+        servicesList = new WiFiDirectServicesList();
+        getFragmentManager().beginTransaction()
+                .add(R.id.container_root, servicesList, "services").commit();
+        discoverService();
+    }
+    @Override
+    protected void onRestart() {
+        Fragment frag = getFragmentManager().findFragmentByTag("services");
+        if (frag != null) {
+            getFragmentManager().beginTransaction().remove(frag).commit();
+        }
+        super.onRestart();
+    }
+    @Override
+    protected void onStop() {
+        if (mManager != null && channel != null) {
+            mManager.removeGroup(channel, new WifiP2pManager.ActionListener() {
+                @Override
+                public void onFailure(int reasonCode) {
+                    Log.d(TAG, "Disconnect failed. Reason :" + reasonCode);
+                }
+                @Override
+                public void onSuccess() {
+                }
+            });
+        }
+        super.onStop();
     }
 
     public void startRegistration() {
@@ -75,7 +132,7 @@ public class PhoneSync extends Activity {
             /* Callback includes:
              * fullDomain: full domain name: e.g "printer._ipp._tcp.local."
              * record: TXT record dta as a map of key/value pairs.
-             * device: The device running the advertised service.
+             * device: The device running the a9dvertised service.
              */
 
             public void onDnsSdTxtRecordAvailable(
@@ -98,10 +155,13 @@ public class PhoneSync extends Activity {
 
                 // Add to the custom adapter defined specifically for showing
                 // wifi devices.
+//                getSupportFragmentManager().findFragmentById(R.id.frag_device);
+//                servicesList = new WiFiDirectServicesList();
+//                getFragmentManager().beginTransaction()
+//                        .add(R.id.frag_device, servicesList, "services").commit();
                 WiFiDirectServicesList fragment = (WiFiDirectServicesList) getFragmentManager()
-                        .findFragmentById(R.id.list_view);
-                WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment
-                        .getListAdapter());
+                        .findFragmentByTag("services");
+                WiFiDevicesAdapter adapter = ((WiFiDevicesAdapter) fragment.getListAdapter());
 
                 WiFiP2pService myService = new WiFiP2pService(resourceType);
                 adapter.add(myService);
@@ -157,3 +217,4 @@ public class PhoneSync extends Activity {
         });
     }
 }
+

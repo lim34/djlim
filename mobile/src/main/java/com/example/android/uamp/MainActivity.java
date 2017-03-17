@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.uamp.PhoneSync.PhoneSync;
+import com.example.android.uamp.PhoneSync.WiFiDirectServicesList;
+import com.example.android.uamp.PhoneSync.WiFiP2pService;
 import com.example.android.uamp.ui.MusicPlayerActivity;
 import com.example.android.uamp.utils.LogHelper;
 
@@ -25,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final Random rand = new Random();
     private static final String TAG = "MainActivity";
-    IntentFilter mIntentFilter;
     WifiP2pManager.Channel channel;
     WifiP2pManager mManager;
     PhoneSync connectP;
@@ -35,12 +36,13 @@ public class MainActivity extends AppCompatActivity {
         LogHelper.d(TAG, " Was started");
         setContentView(R.layout.activity_main);
 
-        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
-        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
-        PhoneSync tempP = new PhoneSync(mManager, channel);
-        connectP = tempP;
-        connectP.startRegistration();
+//        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+//        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
+//        PhoneSync tempP = new PhoneSync(mManager, channel);
+//        connectP = tempP;
+//        connectP.startRegistration();
         randomPin();
+
     }
 
 
@@ -52,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void joinWasClicked(View v) {
-        connectP.discoverService();
+        //connectP.discoverService();
+        Intent newIntent;
+        newIntent = new Intent(this, PhoneSync.class);
+        LogHelper.d(TAG, "changing to PhoneSync");
+        startActivity(newIntent);
     }
 
     public void randomPin() {

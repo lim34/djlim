@@ -7,7 +7,6 @@ import android.app.ListFragment;
 import android.content.Context;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +26,14 @@ import static android.content.ContentValues.TAG;
  */
 public class WiFiDirectServicesList extends ListFragment {
     WiFiDevicesAdapter listAdapter = null;
+
     interface DeviceClickListener {
         public void connectP2p(WiFiP2pService wifiP2pService);
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list, container, false);
+        return inflater.inflate(R.layout.phone_connect, container, false);
     }
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
