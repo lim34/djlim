@@ -19,6 +19,7 @@
     package="com.example.android.uamp"
     tools:ignore="MissingLeanbackLauncher">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission

@@ -25,7 +25,6 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final Random rand = new Random();
     private static final String TAG = "MainActivity";
     WifiP2pManager.Channel channel;
     WifiP2pManager mManager;
@@ -35,14 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogHelper.d(TAG, " Was started");
         setContentView(R.layout.activity_main);
-
+//
 //        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 //        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
 //        PhoneSync tempP = new PhoneSync(mManager, channel);
 //        connectP = tempP;
 //        connectP.startRegistrationandDiscover();
-        randomPin();
-
     }
 
 
@@ -58,11 +55,5 @@ public class MainActivity extends AppCompatActivity {
         newIntent = new Intent(this, PhoneSync.class);
         LogHelper.d(TAG, "changing to PhoneSync");
         startActivity(newIntent);
-    }
-
-    public void randomPin() {
-        int  randPin = rand.nextInt(8888) + 1111;
-        TextView pin = (TextView) this.findViewById(R.id.txtPin);
-        pin.setText("Host Pin\n [ " + randPin + " ]");
     }
 }

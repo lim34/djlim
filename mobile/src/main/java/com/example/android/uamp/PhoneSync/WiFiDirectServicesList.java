@@ -5,6 +5,7 @@ package com.example.android.uamp.PhoneSync;
  */
 import android.app.ListFragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.android.uamp.R;
+import com.example.android.uamp.ui.MusicPlayerActivity;
+import com.example.android.uamp.utils.LogHelper;
 
 import static android.content.ContentValues.TAG;
 
