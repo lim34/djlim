@@ -111,7 +111,7 @@ public class PhoneSync extends Activity implements
     /**
      * Registers a local service and then initiates a service discovery
      */
-    private void startRegistrationAndDiscovery() {
+    public void startRegistrationAndDiscovery() {
         Map<String, String> record = new HashMap<String, String>();
         record.put(TXTRECORD_PROP_AVAILABLE, "visible");
         WifiP2pDnsSdServiceInfo service = WifiP2pDnsSdServiceInfo.newInstance(

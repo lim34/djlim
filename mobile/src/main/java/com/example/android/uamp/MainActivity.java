@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogHelper.d(TAG, " Was started");
         setContentView(R.layout.activity_main);
-//
+
 //        mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
 //        channel = (WifiP2pManager.Channel) mManager.initialize(this, getMainLooper(), null);
 //        PhoneSync tempP = new PhoneSync(mManager, channel);
 //        connectP = tempP;
-//        connectP.startRegistrationandDiscover();
+//        connectP.startRegistrationAndDiscovery();
     }
 
 
