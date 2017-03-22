@@ -144,22 +144,6 @@ public class PhoneSync extends Activity implements
             }
         });
     }
-    private void startRegistrationAndDiscovery() {
-        Map<String, String> record = new HashMap<String, String>();
-        record.put(TXTRECORD_PROP_AVAILABLE, "visible");
-        WifiP2pDnsSdServiceInfo service = WifiP2pDnsSdServiceInfo.newInstance(
-                SERVICE_INSTANCE, SERVICE_REG_TYPE, record);
-        manager.addLocalService(channel, service, new ActionListener() {
-            @Override
-            public void onSuccess() {
-                Log.e(TAG, "Registered Local Service");
-            }
-            @Override
-            public void onFailure(int error) { Log.e(TAG, "Registered Local Service");
-            }
-        });
-        discoverService();
-    }
     private void discoverService() {
         /*
          * Register listeners for DNS-SD services. These are callbacks invoked
