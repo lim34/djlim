@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
@@ -30,6 +31,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import com.example.android.uamp.R;
+import com.example.android.uamp.ui.MusicPlayerActivity;
+import com.example.android.uamp.utils.LogHelper;
+
 /**
  * The main activity for the sample. This activity registers a local service and
  * perform discovery over Wi-Fi p2p network. It also hosts a couple of fragments
@@ -43,17 +47,17 @@ import com.example.android.uamp.R;
  */
 public class PhoneSync extends Activity implements
         DeviceClickListener, Handler.Callback, MessageTarget, ConnectionInfoListener {
-    public static final String TAG = "wifidirectdemo";
+    public static final String TAG = "PhoneSync";
     // TXT RECORD properties
     public static final String TXTRECORD_PROP_AVAILABLE = "available";
-    public static final String SERVICE_INSTANCE = "_wifidemotest";
+    public static final String SERVICE_INSTANCE = "phone";
     public static final String SERVICE_REG_TYPE = "_presence._tcp";
     public static final int MESSAGE_READ = 0x400 + 1;
     public static final int MY_HANDLE = 0x400 + 2;
     private WifiP2pManager manager;
+    private Channel channel;
     static final int SERVER_PORT = 4545;
     private final IntentFilter intentFilter = new IntentFilter();
-    private Channel channel;
     private BroadcastReceiver receiver = null;
     private WifiP2pDnsSdServiceRequest serviceRequest;
     private Handler handler = new Handler(this);
@@ -66,12 +70,12 @@ public class PhoneSync extends Activity implements
     public void setHandler(Handler handler) {
         this.handler = handler;
     }
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phonesync_main);
-        statusTxtView = (TextView) findViewById(R.id.status_text);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION);
         intentFilter
@@ -80,11 +84,25 @@ public class PhoneSync extends Activity implements
                 .addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
         manager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
         channel = manager.initialize(this, getMainLooper(), null);
-        startRegistrationAndDiscovery();
+        startRegistration();
+    }
+
+    public void myMusicWasClicked(View v) {
+        Intent newIntent;
+        newIntent = new Intent(this, MusicPlayerActivity.class);
+        LogHelper.d(TAG, "changing to MusicPlayerActivity");
+        startActivity(newIntent);
+    }
+
+    public void joinWasClicked(View v) {
+        discoverService();
         servicesList = new WiFiDirectServicesList();
         getFragmentManager().beginTransaction()
                 .add(R.id.container_root, servicesList, "services").commit();
     }
+
+
+
     @Override
     protected void onRestart() {
         Fragment frag = getFragmentManager().findFragmentByTag("services");
@@ -111,7 +129,22 @@ public class PhoneSync extends Activity implements
     /**
      * Registers a local service and then initiates a service discovery
      */
-    public void startRegistrationAndDiscovery() {
+    private void startRegistration() {
+        Map<String, String> record = new HashMap<String, String>();
+        record.put("available", "visible");
+        WifiP2pDnsSdServiceInfo service = WifiP2pDnsSdServiceInfo.newInstance(
+                SERVICE_INSTANCE, SERVICE_REG_TYPE, record);
+        manager.addLocalService(channel, service, new ActionListener() {
+            @Override
+            public void onSuccess() {
+                Log.e(TAG, "Registered Local Service");
+            }
+            @Override
+            public void onFailure(int error) { Log.e(TAG, "Registered Local Service");
+            }
+        });
+    }
+    private void startRegistrationAndDiscovery() {
         Map<String, String> record = new HashMap<String, String>();
         record.put(TXTRECORD_PROP_AVAILABLE, "visible");
         WifiP2pDnsSdServiceInfo service = WifiP2pDnsSdServiceInfo.newInstance(
@@ -119,11 +152,10 @@ public class PhoneSync extends Activity implements
         manager.addLocalService(channel, service, new ActionListener() {
             @Override
             public void onSuccess() {
-                appendStatus("Added Local Service");
+                Log.e(TAG, "Registered Local Service");
             }
             @Override
-            public void onFailure(int error) {
-                appendStatus("Failed to add a service");
+            public void onFailure(int error) { Log.e(TAG, "Registered Local Service");
             }
         });
         discoverService();
@@ -282,6 +314,8 @@ public class PhoneSync extends Activity implements
         statusTxtView.setVisibility(View.GONE);
     }
     public void appendStatus(String status) {
+        setContentView(R.layout.main);
+        statusTxtView = (TextView) findViewById(R.id.status_text);
         String current = statusTxtView.getText().toString();
         statusTxtView.setText(current + "\n" + status);
     }
