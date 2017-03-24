@@ -16,9 +16,22 @@
 
 package com.example.android.uamp.model;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.media.MediaMetadataCompat;
+import android.util.Log;
 
+import com.example.android.uamp.SpotifyHelp;
 import com.example.android.uamp.utils.LogHelper;
+import com.spotify.sdk.android.authentication.AuthenticationClient;
+import com.spotify.sdk.android.authentication.AuthenticationResponse;
+import com.spotify.sdk.android.player.Config;
+import com.spotify.sdk.android.player.ConnectionStateCallback;
+import com.spotify.sdk.android.player.Error;
+import com.spotify.sdk.android.player.Player;
+import com.spotify.sdk.android.player.Spotify;
+import com.spotify.sdk.android.player.SpotifyPlayer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +39,9 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -36,37 +51,69 @@ import java.util.Iterator;
  * Utility class to get a list of MusicTrack's based on a server-side JSON
  * configuration.
  */
-public class RemoteJSONSource implements MusicProviderSource {
+public class RemoteJSONSource extends Activity implements MusicProviderSource {
 
     private static final String TAG = LogHelper.makeLogTag(RemoteJSONSource.class);
 
     protected static final String CATALOG_URL =
+//        "https://api.spotify.com/v1/albums/2r2r78NE05YjyHyVbVgqFn";
         "http://storage.googleapis.com/automotive-media/music.json";
 
-    private static final String JSON_MUSIC = "music";
-    private static final String JSON_TITLE = "title";
+//    protected static final String CATALOG_URL =
+//            "https://api.spotify.com/v1/users/1221609934/playlists/4maetuHtO6QLzqalO3CevC";
+
+
+    private static final String JSON_MUSIC = "items";
+    private static final String JSON_TITLE = "name";
     private static final String JSON_ALBUM = "album";
-    private static final String JSON_ARTIST = "artist";
-    private static final String JSON_GENRE = "genre";
-    private static final String JSON_SOURCE = "source";
-    private static final String JSON_IMAGE = "image";
-    private static final String JSON_TRACK_NUMBER = "trackNumber";
-    private static final String JSON_TOTAL_TRACK_COUNT = "totalTrackCount";
-    private static final String JSON_DURATION = "duration";
+    private static final String JSON_ARTIST = "artists[0].name";
+//    private static final String JSON_GENRE = "genre";
+    private static final String JSON_SOURCE = "uri";
+    private static final String JSON_IMAGE = "album[0].href";
+    private static final String JSON_TRACK_NUMBER = "track_number";
+    private static final String JSON_TOTAL_TRACK_COUNT = "track_number";
+    private static final String JSON_DURATION = "duration_ms";
+
+//    private static final String JSON_MUSIC = "music";
+//    private static final String JSON_TITLE = "title";
+//    private static final String JSON_ALBUM = "album";
+//    private static final String JSON_ARTIST = "artist";
+//    private static final String JSON_GENRE = "genre";
+//    private static final String JSON_SOURCE = "source";
+//    private static final String JSON_IMAGE = "image";
+//    private static final String JSON_TRACK_NUMBER = "trackNumber";
+//    private static final String JSON_TOTAL_TRACK_COUNT = "totalTrackCount";
+//    private static final String JSON_DURATION = "duration";
 
     @Override
     public Iterator<MediaMetadataCompat> iterator() {
         try {
-            int slashPos = CATALOG_URL.lastIndexOf('/');
-            String path = CATALOG_URL.substring(0, slashPos + 1);
-            JSONObject jsonObj = fetchJSONFromUrl(CATALOG_URL);
+            //int slashPos = CATALOG_URL.lastIndexOf('/');
+            //String path = CATALOG_URL.substring(0, slashPos + 1);
+
+           // JSONObject jsonObj = fetchJSONFromUrl(CATALOG_URL);
+      //      SpotifyHelp SpotifyHelpJson = new SpotifyHelp();
+
+
+
+         //   Bundle bundle = getIntent().getExtras();
+         //   String hereJson = bundle.getString("mattJson");
+
+            Intent myIntent = getIntent();
+            String hereJson = myIntent.getExtras().getString("mattJson");
+
+            //String hereJson = "dafdaf";
+
+            Log.d("HERE JSON: ", hereJson);
+            JSONObject jsonObj = new JSONObject(hereJson);
+
             ArrayList<MediaMetadataCompat> tracks = new ArrayList<>();
             if (jsonObj != null) {
                 JSONArray jsonTracks = jsonObj.getJSONArray(JSON_MUSIC);
 
                 if (jsonTracks != null) {
                     for (int j = 0; j < jsonTracks.length(); j++) {
-                        tracks.add(buildFromJSON(jsonTracks.getJSONObject(j), path));
+                        tracks.add(buildFromJSON(jsonTracks.getJSONObject(j)));
                     }
                 }
             }
@@ -77,26 +124,28 @@ public class RemoteJSONSource implements MusicProviderSource {
         }
     }
 
-    private MediaMetadataCompat buildFromJSON(JSONObject json, String basePath) throws JSONException {
+    private MediaMetadataCompat buildFromJSON(JSONObject json) throws JSONException {
         String title = json.getString(JSON_TITLE);
         String album = json.getString(JSON_ALBUM);
         String artist = json.getString(JSON_ARTIST);
-        String genre = json.getString(JSON_GENRE);
+        String genre = "Hippity-Hoppity";
         String source = json.getString(JSON_SOURCE);
         String iconUrl = json.getString(JSON_IMAGE);
         int trackNumber = json.getInt(JSON_TRACK_NUMBER);
         int totalTrackCount = json.getInt(JSON_TOTAL_TRACK_COUNT);
-        int duration = json.getInt(JSON_DURATION) * 1000; // ms
+        int duration = json.getInt(JSON_DURATION); // ms
 
         LogHelper.d(TAG, "Found music track: ", json);
 
         // Media is stored relative to JSON file
-        if (!source.startsWith("http")) {
-            source = basePath + source;
-        }
-        if (!iconUrl.startsWith("http")) {
-            iconUrl = basePath + iconUrl;
-        }
+
+//        if (!source.startsWith("http")) {
+//            source = basePath + source;
+//        }
+//        if (!iconUrl.startsWith("http")) {
+//            iconUrl = basePath + iconUrl;
+//        }
+
         // Since we don't have a unique ID in the server, we fake one using the hashcode of
         // the music source. In a real world app, this could come from the server.
         String id = String.valueOf(source.hashCode());
@@ -129,6 +178,23 @@ public class RemoteJSONSource implements MusicProviderSource {
     private JSONObject fetchJSONFromUrl(String urlString) throws JSONException {
         BufferedReader reader = null;
         try {
+
+//
+//            URL url = new URL(Bingo);
+//            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//            Log.d("URL IS: ", urlConnection.toString());
+//            try {
+//                InputStream inputStreamObject = SpotifyHelp.class.getResourceAsStream(urlConnection.getContent());
+//                BufferedReader streamReader = new BufferedReader(new InputStreamReader(inputStreamObject, "UTF-8"));
+//                StringBuilder responseStrBuilder = new StringBuilder();
+//
+//                String inputStr;
+//                while ((inputStr = streamReader.readLine()) != null)
+//                    responseStrBuilder.append(inputStr);
+//
+//                JSONObject jsonObject = new JSONObject(responseStrBuilder.toString());
+//
+//
             URLConnection urlConnection = new URL(urlString).openConnection();
             reader = new BufferedReader(new InputStreamReader(
                     urlConnection.getInputStream(), "iso-8859-1"));

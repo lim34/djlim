@@ -16,11 +16,11 @@
         android:id="@+id/btnJoin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnSong"
-        android:layout_alignTop="@+id/btnSong"
-        android:layout_marginTop="120dp"
         android:onClick="joinWasClicked"
-        android:text="Join" />
+        android:text="Join"
+        android:layout_above="@+id/txtPin"
+        android:layout_alignStart="@+id/btnSong"
+        android:layout_marginBottom="55dp" />
 
     <TextView
         android:id="@+id/txtPin"
@@ -41,5 +41,15 @@
         android:layout_marginTop="112dp"
         android:text="MuSync"
         android:textAppearance="@android:style/TextAppearance.Material.Small" />
+
+    <Button
+        android:id="@+id/btnSpot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSong"
+        android:layout_alignStart="@+id/btnSong"
+        android:layout_marginBottom="40dp"
+        android:onClick="spotifyWasClicked"
+        android:text="Spotify" />
 
 </RelativeLayout>

@@ -285,12 +285,17 @@ public class MusicProvider {
         }
 
         if (MEDIA_ID_ROOT.equals(mediaId)) {
-            for (String genre : getGenres()) {
-                for (MediaMetadataCompat metadata : getMusicsByGenre(genre)) {
-                    mediaItems.add(createMediaItem(metadata));
-                }
-            }
+            mediaItems.add(createBrowsableMediaItemForRoot(resources));
         }
+
+//      ADD TO GET RID OF GENRES
+//        if (MEDIA_ID_ROOT.equals(mediaId)) {
+//            for (String genre : getGenres()) {
+//                for (MediaMetadataCompat metadata : getMusicsByGenre(genre)) {
+//                    mediaItems.add(createMediaItem(metadata));
+//                }
+//            }
+//        }
 
         else if (MEDIA_ID_MUSICS_BY_GENRE.equals(mediaId)) {
             for (String genre : getGenres()) {

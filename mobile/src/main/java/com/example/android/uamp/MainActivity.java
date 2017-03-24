@@ -51,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(newIntent);
     }
 
+    public void spotifyWasClicked(View v) {
+        Intent newIntent;
+        newIntent = new Intent(this, SpotifyHelp.class);
+        LogHelper.d(TAG, "changing to SpotifyHelp");
+        startActivity(newIntent);
+    }
+
     public void joinWasClicked(View v) {
         connectP.discoverService();
     }

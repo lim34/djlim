@@ -3,192 +3,93 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\9.4.0\jars\classes.jar"
+        jar="/Users/Matthew/.android/build-cache/9c927654007b12fe76d2ca84258903d476a2e2ef/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-basement-9.4.0_d90d593c6b740d85e35df0f6a3ee7c6485331dce\classes.dex" />
+        revision="25.0.0"
+        sha1="55220cc71bd23fff8fc339a67f55be3cfd11cdec">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_62eec895b2764cb672a9451d51764aa3f66c77d0/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\9.4.0\jars\classes.jar"
+        jar="/Users/Matthew/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-base-9.4.0_75db28cab0a839c3c14d3869f49cf1014475c3c7\classes.dex" />
+        revision="25.0.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.3.1_a0f245c1e4b9b3efcb8f01cc74b68ba063495304/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.4.0\jars\classes.jar"
+        jar="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-23.4.0_a71f997886f2e93b95f2cf2700e34c1939b698fc\classes.dex" />
+        revision="25.0.0"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_17639ecce7bc8812e5e63baa580635a2d12bb742/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jar="/Users/Matthew/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.11.0/840897fcd7223a8143f1d9b6f69714e7be34fd50/okio-1.11.0.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-23.4.0_04028b1cf3b8732d6e01415e10b1a8a11723102c\classes.dex" />
+        revision="25.0.0"
+        sha1="840897fcd7223a8143f1d9b6f69714e7be34fd50">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.11.0_a63f9228aa97c29bf9fc9b7e664476cbd1984de4/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jar="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_b53f16e3128b39ec3bfdb5ec5fda3d68bb8bfa21\classes.dex" />
+        revision="25.0.0"
+        sha1="3e0f7cdc4fb1d6648a220e4e8aa03d46b67374a1">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_aaee9508d12bc7ca466521a661d4a3a40712127f/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jar="/Users/Matthew/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp3/okhttp/3.6.0/69edde9fc4b01c9fd51d25b83428837478c27254/okhttp-3.6.0.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="0ea721fb076ab16ecc25d5c2adf6266d6732bea2">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-23.4.0_d5cd45d4116a4ac608d60f04df9840deda286133\classes.dex" />
+        revision="25.0.0"
+        sha1="69edde9fc4b01c9fd51d25b83428837478c27254">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-3.6.0_18598a86d88bae798bab009787c84e8fcc988d14/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\9.4.0\jars\classes.jar"
+        jar="/Users/Matthew/.android/build-cache/9c927654007b12fe76d2ca84258903d476a2e2ef/output/jars/libs/jnihelpers-1.0.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="a432629397351d3ec7f27a23d258b229b81af08f">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-9.4.0_431bb048540d9899c5faf7f90d22e8d503600619\classes.dex" />
+        revision="25.0.0"
+        sha1="b54aab38b4f87a6682331b511fec0db6b952bb7e">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/jnihelpers-1.0_2c152d2ab20142f569d6747632f01c90e6c2dc5c/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="/Users/Matthew/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="52fde722943371f4d4bc0326e62e63927e8c4c59">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_9586e961255cea236c0d836d99b48584540db0c5\classes.dex" />
+        revision="25.0.0"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-1.9.0_acfc2a8adc989839ec313feb16811ff956bc1d78/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\palette-v7\23.4.0\jars\classes.jar"
+        jar="/Users/Matthew/.android/build-cache/e5ec9f4fb074d2b0063eb6f718c30a6f9fa84714/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="51518e8e8f97c314a243d9def0ded91d385b6a1e">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-palette-v7-23.4.0_cf150a29c303fe6e5ff0e1c55bd1187de6f09ab7\classes.dex" />
+        revision="25.0.0"
+        sha1="785444f1c6a6b880b9aa0efb9a2464cb6c51f8dc">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_4137e35bd61d9fe928a140961a02cd04651f1b0f/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Katherine\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.4.0\support-annotations-23.4.0.jar"
+        jar="/Users/Matthew/.android/build-cache/8bb2200881f7a5c43cf5d246a4d23d5856082e30/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
-        revision="23.0.3"
-        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-23.4.0_7bc65fb7191f1387f9e8427bb5ede8bda22a5487\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-23.4.0_88cbf4e66eec1be06a51947d9b7cfee800b4d973\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast-framework\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="03829a2618892d438a1f59c6286699ca1f476e93">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-cast-framework-9.4.0_a131074667f2587b82b2720157911e961f8dab5d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5ecb7c85e5db4a206bcd927eb135bf5b9a608b73">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-mediarouter-v7-23.4.0_979786e825921235467a1b1b5e46810860695d77\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.support\wearable\1.3.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="58b928ccbaf9090c632f278d6bd31e1ae42f2457">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.support-wearable-1.3.0_ceccabed64c18bdd2177a11e35d805004b5b5c32\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-23.4.0_6246a4124bf427958bf20352f2d42053118d5a84\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\design\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-23.4.0_d9ca728094ac38b45da5f9573d7b05c45caf85bd\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-23.4.0_48cb508f2f2a9c40d3b9702d61ed09b0aae67d99\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\leanback-v17\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="98f7825e3a39e949ed0cb790326d1f584ab8fcc1">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-leanback-v17-23.4.0_6c052031a7f3c5c2db79d1542509b3b7bcc6f373\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\9.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.google.android.gms-play-services-tasks-9.4.0_9ea4601dbb8b073c24c4f12deb54577f18a4e8fc\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="ef606fac7a83c01b4766885c18d31d31b4ba2c6d">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_7a08e622b7a8a49cc37916961b6d7c9166886bb0\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="23.0.3"
-        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
-        <dex dex="C:\Users\Katherine\MuSync\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-23.4.0_291f140a590bc2e40ed19fae5280c61393db1476\classes.dex" />
+        revision="25.0.0"
+        sha1="0e7c2daeb5c4e8a4b0874bd62367979bb1c0c82a">
+        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c99ce239cb21eeb28191f74c6ab3be81ab6b6340/classes.dex" />
     </item>
 
 </items>

@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="palette-v7-23.4.0">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.android.support/palette-v7/23.4.0/res" />
-      <root url="jar://$PROJECT_DIR$/mobile/build/intermediates/exploded-aar/com.android.support/palette-v7/23.4.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/3730a72d1d09138230754d75a3c3414d059691a2/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/3730a72d1d09138230754d75a3c3414d059691a2/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

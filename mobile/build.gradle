@@ -17,7 +17,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.example.android.uamp"
@@ -46,6 +46,9 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+
+    mavenCentral()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -56,10 +59,17 @@ dependencies {
     compile 'com.android.support:mediarouter-v7:23.4.0'
     compile 'com.android.support:leanback-v17:23.4.0'
     compile 'com.android.support:design:23.4.0'
+    compile 'com.github.kaaes:spotify-web-api-android:0.4.1'
+    compile 'com.squareup.okhttp3:okhttp:3.6.0'
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
     androidTestCompile 'junit:junit:4.12'
     androidTestCompile 'com.android.support:support-annotations:23.4.0'
     androidTestCompile 'com.android.support.test:runner:0.4.1'
     androidTestCompile 'com.android.support.test:rules:0.4.1'
+    // This library handles authentication and authorization
+    compile 'com.spotify.sdk:spotify-android-auth-1.0.0@aar'
+
+    // This library handles music playback
+    compile 'com.spotify.sdk:spotify-player-24-noconnect-2.20b@aar'
 }

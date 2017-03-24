@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="spotify-web-api-android-0.4.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.android/build-cache/e5ec9f4fb074d2b0063eb6f718c30a6f9fa84714/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/e5ec9f4fb074d2b0063eb6f718c30a6f9fa84714/output/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
