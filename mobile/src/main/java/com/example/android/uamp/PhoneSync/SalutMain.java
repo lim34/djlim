@@ -1,9 +1,8 @@
 package com.example.android.uamp.PhoneSync;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +12,8 @@ import android.widget.Toast;
 
 import com.bluelinelabs.logansquare.LoganSquare;
 import com.example.android.uamp.R;
+import com.example.android.uamp.ui.MusicPlayerActivity;
+import com.example.android.uamp.utils.LogHelper;
 import com.peak.salut.Callbacks.SalutCallback;
 import com.peak.salut.Callbacks.SalutDataCallback;
 import com.peak.salut.Callbacks.SalutDeviceCallback;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
  */
 
 
-public class SalutMain extends ActionBarActivity implements SalutDataCallback, View.OnClickListener{
+public class SalutMain extends Activity implements SalutDataCallback, View.OnClickListener{
 
     /*
         This simple activity demonstrates how to use the Salut library from a host and client perspective.
@@ -95,6 +96,12 @@ public class SalutMain extends ActionBarActivity implements SalutDataCallback, V
 
     }
 
+    public void myMusicWasClicked(View v) {
+        Intent newIntent;
+        newIntent = new Intent(this, MusicPlayerActivity.class);
+        LogHelper.d(TAG, "changing to MusicPlayerActivity");
+        startActivity(newIntent);
+    }
     private void setupNetwork()
     {
         if(!network.isRunningAsHost)
@@ -129,6 +136,7 @@ public class SalutMain extends ActionBarActivity implements SalutDataCallback, V
                     Toast.makeText(getApplicationContext(), "Device: " + network.foundDevices.get(0).instanceName + " found.", Toast.LENGTH_SHORT).show();
                 }
             }, true);
+            setContentView(R.layout.main);
             discoverBtn.setText("Stop Discovery");
             hostingBtn.setAlpha(0.5f);
             hostingBtn.setClickable(false);
@@ -140,13 +148,6 @@ public class SalutMain extends ActionBarActivity implements SalutDataCallback, V
             hostingBtn.setAlpha(1f);
             hostingBtn.setClickable(false);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }
 
     /*Create a callback where we will actually process the data.*/
