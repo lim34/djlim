@@ -16,8 +16,10 @@
 package com.example.android.uamp.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.android.uamp.R;
+import com.example.android.uamp.utils.LogHelper;
 
 /**
  * Placeholder activity for features that are not implemented in this sample, but
@@ -27,6 +29,7 @@ public class PlaceholderActivity extends BaseActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.i("PlaceholderActivity", "oncreate()");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_placeholder);
         initializeToolbar();

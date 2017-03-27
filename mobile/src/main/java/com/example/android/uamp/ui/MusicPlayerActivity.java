@@ -17,11 +17,14 @@ package com.example.android.uamp.ui;
 
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.media.MediaBrowserCompat;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
@@ -35,6 +38,7 @@ import com.example.android.uamp.utils.LogHelper;
 public class MusicPlayerActivity extends BaseActivity
         implements MediaBrowserFragment.MediaFragmentListener {
 
+    String media_id;
     private static final String TAG = LogHelper.makeLogTag(MusicPlayerActivity.class);
     private static final String SAVED_MEDIA_ID="com.example.android.uamp.MEDIA_ID";
     private static final String FRAGMENT_TAG = "uamp_list_container";
@@ -79,11 +83,32 @@ public class MusicPlayerActivity extends BaseActivity
 
     @Override
     public void onMediaItemSelected(MediaBrowserCompat.MediaItem item) {
+        Log.i(TAG, "Media Item is selected");
+        Log.i(TAG, "Media Id: " + item.getMediaId());
         LogHelper.d(TAG, "onMediaItemSelected, mediaId=" + item.getMediaId());
         if (item.isPlayable()) {
-            getSupportMediaController().getTransportControls()
-                    .playFromMediaId(item.getMediaId(), null);
+            Log.i(TAG, "item is playable");
+            //get the shared preference from SalutMain
+            SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+            String isHost = sharedPref.getString("IsHost", null);
+            if(isHost == "Host") {
+               /* SharedPreferences sharedPrefs = getSharedPreferences(
+                        "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putString(item.getMediaId(), media_id);
+                editor.apply();
+                getSupportMediaController().getTransportControls()
+                        .playFromMediaId(item.getMediaId(), null); */
+                Log.d(TAG, "Is host");
+            } else if (isHost == "Friend"){
+                /*getSupportMediaController().getTransportControls()
+                        .playFromMediaId(item.getMediaId(), null); */
+                Log.d(TAG, "Is friend");
+            } else {
+                //error
+            }
         } else if (item.isBrowsable()) {
+            Log.i(TAG, "Item is browsble");
             navigateToBrowser(item.getMediaId());
         } else {
             LogHelper.w(TAG, "Ignoring MediaItem that is neither browsable nor playable: ",
@@ -93,6 +118,7 @@ public class MusicPlayerActivity extends BaseActivity
 
     @Override
     public void setToolbarTitle(CharSequence title) {
+        Log.i(TAG, "Setting toolbar title");
         LogHelper.d(TAG, "Setting toolbar title to ", title);
         if (title == null) {
             title = getString(R.string.app_name);
@@ -140,7 +166,7 @@ public class MusicPlayerActivity extends BaseActivity
     private void navigateToBrowser(String mediaId) {
         LogHelper.d(TAG, "navigateToBrowser, mediaId=" + mediaId);
         MediaBrowserFragment fragment = getBrowseFragment();
-
+        Log.i(TAG, "navigating to browser");
         if (fragment == null || !TextUtils.equals(fragment.getMediaId(), mediaId)) {
             fragment = new MediaBrowserFragment();
             fragment.setMediaId(mediaId);

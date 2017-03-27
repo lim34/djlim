@@ -1,7 +1,9 @@
 package com.example.android.uamp.PhoneSync;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -52,7 +54,7 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
     /*
         This simple activity demonstrates how to use the Salut library from a host and client perspective.
      */
-
+    String is_host;
     public static final String TAG = "SalutTestApp";
     public SalutDataReceiver dataReceiver;
     public SalutServiceData serviceData;
@@ -166,10 +168,21 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
         }
         if(v.getId() == R.id.btnHost)
         {
+            SharedPreferences sharedPrefs = getSharedPreferences(
+                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            is_host = "Host";
+            editor.putString("IsHost", is_host);
+            editor.apply();
             setupNetwork();
         }
         else if(v.getId() == R.id.btnjoin)
         {
+            SharedPreferences sharedPrefs = getSharedPreferences(
+                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            is_host = "Friend";
+            editor.putString("IsHost", is_host);
             discoverServices();
         }
     }
