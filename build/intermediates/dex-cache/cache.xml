@@ -39,30 +39,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\loyd\.gradle\caches\modules-2\files-2.1\com.bluelinelabs\logansquare\1.3.4\44262279e900a296de2a3af5629bbdd6832d8a52\logansquare-1.3.4.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="44262279e900a296de2a3af5629bbdd6832d8a52">
-        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\logansquare-1.3.4_13f017c8857f09099430f1c3e9e6951a937748a7.jar" />
-    </item>
-    <item
-        is-multidex="false"
         jar="C:\MuSync\mobile\build\intermediates\exploded-aar\com.arasthel\asyncjob-library\1.0.3\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
         sha1="c67e97e8c6f9d5fd75a479be5a7daa19647a5759">
         <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\com.arasthel-asyncjob-library-1.0.3_533c5f035862a10bae58add0bce87cdaf0231b36.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="C:\MuSync\mobile\build\intermediates\exploded-aar\com.github.markrjr\Salut\v0.5.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="23.0.3"
-        sha1="10e9395f20f5a966d74c4294462c65c4483c97ed">
-        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\com.github.markrjr-Salut-v0.5.0_f88ad031ccf6fb91f7cf48b2f2a750ce1e7c76ce.jar" />
     </item>
     <item
         is-multidex="false"
@@ -135,6 +117,24 @@
         revision="23.0.3"
         sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
         <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-9.4.0_a399c8632bde9b07fce08db6822644da5c7d3d9b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\loyd\.gradle\caches\modules-2\files-2.1\com.bluelinelabs\logansquare\1.0.6\83965dd8a8ca07e2a6994cc8cc81c375d5e6955f\logansquare-1.0.6.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="83965dd8a8ca07e2a6994cc8cc81c375d5e6955f">
+        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\logansquare-1.0.6_b379e75dc9fa2277f8ba3b2ee64bbc08933d3b91.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\MuSync\mobile\build\intermediates\exploded-aar\MuSync\salut\0.3\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="ca02fbb33c6bc6a3abf3586d2f89cf68a5cc888b">
+        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\MuSync-salut-0.3_51a66c22070dad4f1bb6bb39ef45156be4540a58.jar" />
     </item>
     <item
         is-multidex="false"

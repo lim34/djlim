@@ -1,13 +1,17 @@
 package com.example.android.uamp.PhoneSync;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bluelinelabs.logansquare.LoganSquare;
@@ -23,6 +27,8 @@ import com.peak.salut.SalutDevice;
 import com.peak.salut.SalutServiceData;
 
 import java.util.ArrayList;
+
+import static android.R.attr.fragment;
 
 /**
  * Copyright (c) 2015 Peak Digital LLC
@@ -46,41 +52,31 @@ import java.util.ArrayList;
  *   SOFTWARE.
  */
 
-
-public class SalutMain extends Activity implements SalutDataCallback, View.OnClickListener{
+//View.OnClickListener
+public class SalutMain extends Activity implements SalutDataCallback {
 
     /*
         This simple activity demonstrates how to use the Salut library from a host and client perspective.
      */
 
-    public static final String TAG = "SalutTestApp";
+    public static final String TAG = "SalutMain";
     public SalutDataReceiver dataReceiver;
     public SalutServiceData serviceData;
     public Salut network;
-    public Button hostingBtn;
-    public Button discoverBtn;
-    SalutDataCallback callback;
+    private WiFiDirectServicesList servicesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.phonesync_main);
 
-        hostingBtn = (Button) findViewById(R.id.btnHost);
-        discoverBtn = (Button) findViewById(R.id.btnjoin);
-
-        hostingBtn.setOnClickListener(this);
-        discoverBtn.setOnClickListener(this);
-
-
         /*Create a data receiver object that will bind the callback
         with some instantiated object from our app. */
         dataReceiver = new SalutDataReceiver(this, this);
 
-
         /*Populate the details for our awesome service. */
-        serviceData = new SalutServiceData("testAwesomeService", 60606,
-                "HOST");
+        serviceData = new SalutServiceData("MuSync", 60606,
+                "Host");
 
         /*Create an instance of the Salut class, with all of the necessary data from before.
         * We'll also provide a callback just in case a device doesn't support WiFi Direct, which
@@ -94,6 +90,17 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             }
         });
 
+        if(network.isRunningAsHost)
+        {
+            network.disconnectFromDevice();
+            network.forceDisconnect();
+            network.stopNetworkService(true);
+            network.unregisterClient(false);
+            setupNetwork();
+        }
+        else {
+            setupNetwork();
+        }
     }
 
     public void myMusicWasClicked(View v) {
@@ -102,6 +109,21 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
         LogHelper.d(TAG, "changing to MusicPlayerActivity");
         startActivity(newIntent);
     }
+
+    public void joinWasClicked(View v) {
+        setContentView(R.layout.join);
+        if(network.isRunningAsHost) {
+            network.disconnectFromDevice();
+            network.forceDisconnect();
+            network.stopNetworkService(true);
+            network.unregisterClient(false);
+        }
+        servicesList = new WiFiDirectServicesList();
+        getFragmentManager().beginTransaction()
+                .add(R.id.container_root, servicesList, "services").commit();
+        discoverServices();
+    }
+
     private void setupNetwork()
     {
         if(!network.isRunningAsHost)
@@ -112,17 +134,13 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
                     Toast.makeText(getApplicationContext(), "Device: " + salutDevice.instanceName + " connected.", Toast.LENGTH_SHORT).show();
                 }
             });
-
-            hostingBtn.setText("Stop Service");
-            discoverBtn.setAlpha(0.5f);
-            discoverBtn.setClickable(false);
         }
-        else
-        {
-            network.stopNetworkService(false);
-            hostingBtn.setText("Start Service");
-            discoverBtn.setAlpha(1f);
-            discoverBtn.setClickable(true);
+        else {
+            network.disconnectFromDevice();
+            network.forceDisconnect();
+            network.stopNetworkService(true);
+            network.unregisterClient(false);
+            setupNetwork();
         }
     }
 
@@ -133,23 +151,42 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             network.discoverNetworkServices(new SalutCallback() {
                 @Override
                 public void call() {
-                    Toast.makeText(getApplicationContext(), "Device: " + network.foundDevices.get(0).instanceName + " found.", Toast.LENGTH_SHORT).show();
+                    WiFiDirectServicesList fragment = (WiFiDirectServicesList) getFragmentManager()
+                            .findFragmentByTag("services");
+                    if (fragment != null) {
+                        WiFiDirectServicesList.WiFiDevicesAdapter adapter = ((WiFiDirectServicesList.WiFiDevicesAdapter) fragment
+                                .getListAdapter());
+                        adapter.add(network.foundDevices.get(0));
+                    }
+//                    Toast.makeText(getApplicationContext(), "Device: " + network.foundDevices.get(0).instanceName + " found.", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Device:" + network.foundDevices.get(0).instanceName + " found.");
+                    connectDevices(network.foundDevices.get(0));
                 }
             }, true);
-            setContentView(R.layout.main);
-            discoverBtn.setText("Stop Discovery");
-            hostingBtn.setAlpha(0.5f);
-            hostingBtn.setClickable(false);
+//            connectDevices();
+
         }
         else
         {
+            Log.d(TAG, "discovery stopped/retrying");
             network.stopServiceDiscovery(true);
-            discoverBtn.setText("Discover Services");
-            hostingBtn.setAlpha(1f);
-            hostingBtn.setClickable(false);
+            discoverServices();
         }
     }
 
+    public void connectDevices(SalutDevice foundDevice) {
+        network.registerWithHost(foundDevice, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We're now registered.");
+            }
+        }, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We failed to register.");
+            }
+        });
+    }
     /*Create a callback where we will actually process the data.*/
     @Override
     public void onDataReceived(Object o) {
@@ -157,20 +194,11 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
     }
 
     @Override
-    public void onClick(View v) {
-
-        if(!Salut.isWiFiEnabled(getApplicationContext()))
-        {
-            Toast.makeText(getApplicationContext(), "Please enable WiFi first.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if(v.getId() == R.id.btnHost)
-        {
-            setupNetwork();
-        }
-        else if(v.getId() == R.id.btnjoin)
-        {
-            discoverServices();
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        network.disconnectFromDevice();
+        network.forceDisconnect();
+        network.stopNetworkService(true);
+        network.unregisterClient(false);
     }
 }
