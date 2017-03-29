@@ -174,7 +174,14 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             is_host = "Host";
             editor.putString("IsHost", is_host);
             editor.apply();
+
+            String testHost = sharedPrefs.getString("IsHost", null);
+
+            Log.d(TAG, "placed HOST Bro " + testHost);
+
             setupNetwork();
+
+            String isHost = sharedPrefs.getString("IsHost", null);
         }
         else if(v.getId() == R.id.btnjoin)
         {
@@ -183,7 +190,25 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             SharedPreferences.Editor editor = sharedPrefs.edit();
             is_host = "Friend";
             editor.putString("IsHost", is_host);
+            editor.apply();
+
+            String testHost = sharedPrefs.getString("IsHost", null);
+
+            Log.d(TAG, "placed FRIEND Bro" + testHost);
+
+
             discoverServices();
         }
+    }
+
+    public void sendSongOut(String song) {
+        Log.d(TAG, "Song recieve: " + song);
+        MediaIdSender mediaIdSender = new MediaIdSender();
+        mediaIdSender.mediaId = song;
+        network.sendToAllDevices(mediaIdSender, new SalutCallback() {
+            public void call() {
+                Log.e(TAG, "Oh no! The song did not send :(");
+            }
+        });
     }
 }

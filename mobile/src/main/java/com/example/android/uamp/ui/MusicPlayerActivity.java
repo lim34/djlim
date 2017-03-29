@@ -15,6 +15,7 @@
  */
 package com.example.android.uamp.ui;
 
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
 import android.content.Context;
@@ -26,6 +27,7 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.android.uamp.PhoneSync.SalutMain;
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
 
@@ -38,7 +40,6 @@ import com.example.android.uamp.utils.LogHelper;
 public class MusicPlayerActivity extends BaseActivity
         implements MediaBrowserFragment.MediaFragmentListener {
 
-    String media_id;
     private static final String TAG = LogHelper.makeLogTag(MusicPlayerActivity.class);
     private static final String SAVED_MEDIA_ID="com.example.android.uamp.MEDIA_ID";
     private static final String FRAGMENT_TAG = "uamp_list_container";
@@ -81,30 +82,49 @@ public class MusicPlayerActivity extends BaseActivity
         super.onSaveInstanceState(outState);
     }
 
+    interface salutbridge {
+        void sendSongOut(String myString);
+    }
+
     @Override
     public void onMediaItemSelected(MediaBrowserCompat.MediaItem item) {
-        Log.i(TAG, "Media Item is selected");
-        Log.i(TAG, "Media Id: " + item.getMediaId());
         LogHelper.d(TAG, "onMediaItemSelected, mediaId=" + item.getMediaId());
         if (item.isPlayable()) {
-            Log.i(TAG, "item is playable");
             //get the shared preference from SalutMain
             SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+
             String isHost = sharedPref.getString("IsHost", null);
-            if(isHost == "Host") {
-               /* SharedPreferences sharedPrefs = getSharedPreferences(
-                        "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPrefs.edit();
-                editor.putString(item.getMediaId(), media_id);
-                editor.apply();
-                getSupportMediaController().getTransportControls()
-                        .playFromMediaId(item.getMediaId(), null); */
+            Log.d(TAG, "SharedPref 'isHost' is " + isHost);
+
+
+            if(isHost.equals("Host")) {
                 Log.d(TAG, "Is host");
-            } else if (isHost == "Friend"){
-                /*getSupportMediaController().getTransportControls()
-                        .playFromMediaId(item.getMediaId(), null); */
+
+               /* editor.putString("songSelected", item.getMediaId());
+                editor.apply();
+
+                String testing = sharedPref.getString("songSelected", null);
+                Log.d(TAG, "test song stored is " + testing); */
+
+                //send item.getMediaId() to other device
+                ((salutbridge) getActionBar()).sendSongOut(item.getMediaId());
+
+
+
+                getSupportMediaController().getTransportControls()
+                        .playFromMediaId(item.getMediaId(), null);
+
+
+            }   else if(isHost.equals("Friend")) {
+                    String receivedSong = sharedPref.getString("receivedSong", null);
+                    getSupportMediaController().getTransportControls()
+                            .playFromMediaId(receivedSong, null);
+
                 Log.d(TAG, "Is friend");
             } else {
+                Log.d(TAG, "superError");
+
                 //error
             }
         } else if (item.isBrowsable()) {
