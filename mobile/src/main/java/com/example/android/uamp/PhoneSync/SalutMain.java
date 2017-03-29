@@ -104,8 +104,19 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
         LogHelper.d(TAG, "changing to MusicPlayerActivity");
         startActivity(newIntent);
     }
+
     private void setupNetwork()
     {
+        if(hostingBtn.getText() == "StopService"){
+            if(network.isRunningAsHost){
+                network.disconnectFromDevice();
+                network.forceDisconnect();
+                network.unregisterClient(false);
+                hostingBtn.setText("Start Service");
+                discoverBtn.setAlpha(1f);
+                discoverBtn.setClickable(true);
+            }
+        }
         if(!network.isRunningAsHost)
         {
             network.startNetworkService(new SalutDeviceCallback() {
@@ -119,13 +130,6 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             discoverBtn.setAlpha(0.5f);
             discoverBtn.setClickable(false);
         }
-        else
-        {
-            network.stopNetworkService(false);
-            hostingBtn.setText("Start Service");
-            discoverBtn.setAlpha(1f);
-            discoverBtn.setClickable(true);
-        }
     }
 
     private void discoverServices()
@@ -136,9 +140,9 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
                 @Override
                 public void call() {
                     Toast.makeText(getApplicationContext(), "Device: " + network.foundDevices.get(0).instanceName + " found.", Toast.LENGTH_SHORT).show();
+                    connectDevices(network.foundDevices.get(0));
                 }
             }, true);
-            setContentView(R.layout.main);
             discoverBtn.setText("Stop Discovery");
             hostingBtn.setAlpha(0.5f);
             hostingBtn.setClickable(false);
@@ -150,6 +154,23 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
             hostingBtn.setAlpha(1f);
             hostingBtn.setClickable(false);
         }
+    }
+
+    public void connectDevices(SalutDevice foundDevice) {
+        network.registerWithHost(foundDevice, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We're now registered.");
+                Toast.makeText(getApplicationContext(), "Device connected", Toast.LENGTH_SHORT).show();
+            }
+        }, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We failed to register.");
+                Toast.makeText(getApplicationContext(), "Device Had an Error connecting", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     /*Create a callback where we will actually process the data.*/
@@ -168,47 +189,67 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
         }
         if(v.getId() == R.id.btnHost)
         {
-            SharedPreferences sharedPrefs = getSharedPreferences(
-                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            is_host = "Host";
-            editor.putString("IsHost", is_host);
-            editor.apply();
-
-            String testHost = sharedPrefs.getString("IsHost", null);
-
-            Log.d(TAG, "placed HOST Bro " + testHost);
+//            SharedPreferences sharedPrefs = getSharedPreferences(
+//                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPrefs.edit();
+//            is_host = "Host";
+//            editor.putString("IsHost", is_host);
+//            editor.apply();
+//
+//            String testHost = sharedPrefs.getString("IsHost", null);
+//
+//            Log.d(TAG, "placed HOST Bro " + testHost);
 
             setupNetwork();
-
-            String isHost = sharedPrefs.getString("IsHost", null);
+//            String isHost = sharedPrefs.getString("IsHost", null);
         }
         else if(v.getId() == R.id.btnjoin)
         {
-            SharedPreferences sharedPrefs = getSharedPreferences(
-                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            is_host = "Friend";
-            editor.putString("IsHost", is_host);
-            editor.apply();
-
-            String testHost = sharedPrefs.getString("IsHost", null);
-
-            Log.d(TAG, "placed FRIEND Bro" + testHost);
-
-
+//            SharedPreferences sharedPrefs = getSharedPreferences(
+//                    "APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPrefs.edit();
+//            is_host = "Friend";
+//            editor.putString("IsHost", is_host);
+//            editor.apply();
+//
+//            String testHost = sharedPrefs.getString("IsHost", null);
+//
+//            Log.d(TAG, "placed FRIEND Bro" + testHost);
+            if(network.isRunningAsHost) {
+                network.disconnectFromDevice();
+                network.forceDisconnect();
+                network.unregisterClient(false);
+            }
             discoverServices();
         }
     }
 
-    public void sendSongOut(String song) {
-        Log.d(TAG, "Song recieve: " + song);
-        MediaIdSender mediaIdSender = new MediaIdSender();
-        mediaIdSender.mediaId = song;
-        network.sendToAllDevices(mediaIdSender, new SalutCallback() {
-            public void call() {
-                Log.e(TAG, "Oh no! The song did not send :(");
-            }
-        });
+//    public void sendSongOut(String song) {
+//        Log.d(TAG, "Song recieve: " + song);
+//        network.sendToAllDevices(mediaIdSender, new SalutCallback() {
+//            public void call() {
+//                Log.e(TAG, "Oh no! The song did not send :(");
+//            }
+//        });
+//    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(network.isRunningAsHost) {
+            network.disconnectFromDevice();
+            network.forceDisconnect();
+            network.unregisterClient(false);
+        } if (network.isDiscovering) {
+            network.stopServiceDiscovery(true);
+        }
+        else
+            network.stopNetworkService(false);
     }
 }
