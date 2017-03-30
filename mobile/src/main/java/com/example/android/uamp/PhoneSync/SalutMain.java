@@ -16,6 +16,7 @@ import com.bluelinelabs.logansquare.LoganSquare;
 import com.example.android.uamp.R;
 import com.example.android.uamp.ui.MusicPlayerActivity;
 import com.example.android.uamp.utils.LogHelper;
+import com.google.gson.Gson;
 import com.peak.salut.Callbacks.SalutCallback;
 import com.peak.salut.Callbacks.SalutDataCallback;
 import com.peak.salut.Callbacks.SalutDeviceCallback;
@@ -24,6 +25,7 @@ import com.peak.salut.SalutDataReceiver;
 import com.peak.salut.SalutDevice;
 import com.peak.salut.SalutServiceData;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +51,7 @@ import java.util.ArrayList;
  */
 
 
-public class SalutMain extends Activity implements SalutDataCallback, View.OnClickListener{
+public class SalutMain extends Activity implements SalutDataCallback, View.OnClickListener {
 
     /*
         This simple activity demonstrates how to use the Salut library from a host and client perspective.
@@ -61,7 +63,7 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
     public Salut network;
     public Button hostingBtn;
     public Button discoverBtn;
-    SalutDataCallback callback;
+    //SalutDataCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +103,36 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
     public void myMusicWasClicked(View v) {
         Intent newIntent;
         newIntent = new Intent(this, MusicPlayerActivity.class);
+
+        //store "this" inside this intent below
+        //newIntent.
+
+
+        //   Gson gson = new Gson();
+        //  String parent = gson.toJson(this,SalutMain.class);
+
+        //   newIntent.putExtra("parent", parent);
+
         LogHelper.d(TAG, "changing to MusicPlayerActivity");
         startActivity(newIntent);
     }
+
+    public void syncWasClicked(View v) {
+
+        sendSongOut();
+
+        //store "this" inside this intent below
+        //newIntent.
+
+
+        //   Gson gson = new Gson();
+        //  String parent = gson.toJson(this,SalutMain.class);
+
+        //   newIntent.putExtra("parent", parent);
+
+    }
+
+
     private void setupNetwork()
     {
         if(!network.isRunningAsHost)
@@ -154,8 +183,20 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
 
     /*Create a callback where we will actually process the data.*/
     @Override
-    public void onDataReceived(Object o) {
+    public void onDataReceived(Object data) {
         //Data Is Received
+        try
+        {
+            MediaIdSender mIdSenderHere = LoganSquare.parse((MediaIdSender)data, MediaIdSender.class);
+
+            Log.d(TAG, mIdSenderHere.mySong);  //See you on the other side!
+            //Do other stuff with data.
+
+        }
+        catch (IOException ex)
+        {
+            Log.e(TAG, "Failed to parse network data.");
+        }
     }
 
     @Override
@@ -201,14 +242,42 @@ public class SalutMain extends Activity implements SalutDataCallback, View.OnCli
         }
     }
 
-    public void sendSongOut(String song) {
-        Log.d(TAG, "Song recieve: " + song);
-        MediaIdSender mediaIdSender = new MediaIdSender();
-        mediaIdSender.mediaId = song;
-        network.sendToAllDevices(mediaIdSender, new SalutCallback() {
+    public void sendSongOut() {
+        //Log.d(TAG, "Song recieve: " + song);
+
+        String song = "cake Baby!";
+
+        SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+
+        song = sharedPref.getString("songSelected", null);
+
+
+        MediaIdSender mIDSender = new MediaIdSender();
+        mIDSender.mySong = song;
+
+        Log.d(TAG, "SalutMain got this! : " + mIDSender.mySong);
+
+
+        network.sendToAllDevices(mIDSender, new SalutCallback() {
             public void call() {
                 Log.e(TAG, "Oh no! The song did not send :(");
             }
         });
+
+
+//        if (network.isRunningAsHost)
+//        {
+//            Log.d(TAG, "I'm the host!!!");
+//            if (network.isConnectedToAnotherDevice)
+//            {
+//                Log.d(TAG, "I'm connected!!!");
+//            }
+//        }
+//        else
+//        {
+//            Log.d(TAG, "No Network!!!");
+//        }
+
+
     }
 }

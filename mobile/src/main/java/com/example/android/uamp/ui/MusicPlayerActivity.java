@@ -27,9 +27,11 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.android.uamp.PhoneSync.MediaIdSender;
 import com.example.android.uamp.PhoneSync.SalutMain;
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
+import com.google.gson.Gson;
 
 /**
  * Main activity for the music player.
@@ -43,6 +45,8 @@ public class MusicPlayerActivity extends BaseActivity
     private static final String TAG = LogHelper.makeLogTag(MusicPlayerActivity.class);
     private static final String SAVED_MEDIA_ID="com.example.android.uamp.MEDIA_ID";
     private static final String FRAGMENT_TAG = "uamp_list_container";
+
+    //public MediaIdSender delegate = null;
 
     public static final String EXTRA_START_FULLSCREEN =
             "com.example.android.uamp.EXTRA_START_FULLSCREEN";
@@ -67,6 +71,12 @@ public class MusicPlayerActivity extends BaseActivity
         initializeToolbar();
         initializeFromParams(savedInstanceState, getIntent());
 
+
+        //set delegate = to the "this" inside of intent to point to parent.
+//        Gson gson = new Gson();
+//        delegate = gson.fromJson(getIntent().getStringExtra("parent"),SalutMain.class);
+
+
         // Only check if a full screen player is needed on the first time:
         if (savedInstanceState == null) {
             startFullScreenActivityIfNeeded(getIntent());
@@ -82,9 +92,9 @@ public class MusicPlayerActivity extends BaseActivity
         super.onSaveInstanceState(outState);
     }
 
-    interface salutbridge {
-        void sendSongOut(String myString);
-    }
+//    interface salutbridge {
+//        void sendSongOut(String myString);
+//    }
 
     @Override
     public void onMediaItemSelected(MediaBrowserCompat.MediaItem item) {
@@ -101,19 +111,29 @@ public class MusicPlayerActivity extends BaseActivity
             if(isHost.equals("Host")) {
                 Log.d(TAG, "Is host");
 
-               /* editor.putString("songSelected", item.getMediaId());
+                editor.putString("songSelected", item.getMediaId());
                 editor.apply();
 
                 String testing = sharedPref.getString("songSelected", null);
-                Log.d(TAG, "test song stored is " + testing); */
+                Log.d(TAG, "test song stored is " + testing);
+
 
                 //send item.getMediaId() to other device
-                ((salutbridge) getActionBar()).sendSongOut(item.getMediaId());
+//                if (delegate != null)
+//                {
+//                    delegate.sendSongOut(item.getMediaId());
+//                }
 
+                //SalutMain tempSalut = new SalutMain();
+
+                //tempSalut.sendSongOut(item.getMediaId());
 
 
                 getSupportMediaController().getTransportControls()
                         .playFromMediaId(item.getMediaId(), null);
+
+
+
 
 
             }   else if(isHost.equals("Friend")) {
