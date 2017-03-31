@@ -387,6 +387,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
     {
         if(!network.isRunningAsHost && !network.isDiscovering)
         {
+            //this sets up the device into network discovery mode
             network.discoverNetworkServices(new SalutCallback() {
                 @Override
                 public void call() {
@@ -412,14 +413,11 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
             @Override
             public void call() {
                 Log.d(TAG, "We're now registered.");
-//                Toast.makeText(getApplicationContext(), "Device connected", Toast.LENGTH_SHORT).show();
             }
         }, new SalutCallback() {
             @Override
             public void call() {
                 Log.d(TAG, "We failed to register.");
-//                Toast.makeText(getApplicationContext(), "Device Had an Error connecting", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
@@ -431,6 +429,14 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
             Log.d(TAG, "Song was recieved" + song);
     }
 
+    /**
+     * Create a on click listener so that we can change the state buttons weather they can be
+     * clicked or not. So when a host is pressed it disables the join button and changes the
+     * host button to display stop service. With this the idea is to force a friend to host
+     * and others join. We added a kill button so that we could stop the wifi-direct connection
+     * however we later realized that the minute we leave the activity the network object would
+     * be destroyed and we would lose all control over it.
+     */
     @Override
     public void onClick(View v) {
 

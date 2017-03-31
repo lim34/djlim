@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import com.example.android.uamp.R;
 import com.example.android.uamp.ui.ActionBarCastActivity;
 import com.example.android.uamp.ui.MusicPlayerActivity;
@@ -32,12 +33,20 @@ import com.example.android.uamp.utils.LogHelper;
  *   SOFTWARE.
  */
 
-
+/**
+ * This class is when we land when the app is launched and we first declare listeners
+ * for the different buttons that we have on the interface relating to our "network"
+ * We declared network and all of its inter-workings in ActionBarCastActivity in hopes
+ * that the object would persist but then we better understood the android activity lifecycle
+ * and when we went to check if the device was a host in the MusicPlayerActivity it would
+ * tell us that we were not since the object was destroyed between activities.
+ *
+ * Also when the connection was successful with the other phone we would lose control
+ * couldn't severe connection to reset things. Then the user goes to connect again and a connection
+ * already exists so the phone crashes and restarts.
+ */
 public class SalutMain extends ActionBarCastActivity {
 
-    /*
-        This simple activity demonstrates how to use the Salut library from a host and client perspective.
-     */
     public static final String TAG = "SalutMain";
 
     @Override
@@ -50,6 +59,7 @@ public class SalutMain extends ActionBarCastActivity {
 
         setContentView(R.layout.phonesync_main);
 
+
         hostingBtn = (Button) findViewById(R.id.btnHost);
         discoverBtn = (Button) findViewById(R.id.btnjoin);
         disconnectBtn = (Button) findViewById(R.id.btnDisconnect);
@@ -58,7 +68,10 @@ public class SalutMain extends ActionBarCastActivity {
         discoverBtn.setOnClickListener(this);
         disconnectBtn.setOnClickListener(this);
 
+
         makeNetwork();
+
+        //this is a part of the ActionBarCastActivity and needs to be called.
         initializeToolbar();
     }
 
@@ -66,6 +79,7 @@ public class SalutMain extends ActionBarCastActivity {
         Intent newIntent;
         newIntent = new Intent(this, MusicPlayerActivity.class);
 
+        //sets this to false so other sections of code can be run in ActionBarCastActivity
         salutusing = false;
 
         LogHelper.d(TAG, "changing to MusicPlayerActivity");
