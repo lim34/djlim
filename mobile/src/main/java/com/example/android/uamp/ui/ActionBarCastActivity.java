@@ -28,9 +28,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.MediaRouteButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
@@ -39,6 +42,13 @@ import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastState;
 import com.google.android.gms.cast.framework.CastStateListener;
 import com.google.android.gms.cast.framework.IntroductoryOverlay;
+import com.peak.salut.Callbacks.SalutCallback;
+import com.peak.salut.Callbacks.SalutDataCallback;
+import com.peak.salut.Callbacks.SalutDeviceCallback;
+import com.peak.salut.Salut;
+import com.peak.salut.SalutDataReceiver;
+import com.peak.salut.SalutDevice;
+import com.peak.salut.SalutServiceData;
 
 /**
  * Abstract activity with toolbar, navigation drawer and cast support. Needs to be extended by
@@ -50,11 +60,20 @@ import com.google.android.gms.cast.framework.IntroductoryOverlay;
  * a {@link android.support.v4.widget.DrawerLayout} with id 'drawerLayout' and
  * a {@link android.widget.ListView} with id 'drawerList'.
  */
-public abstract class ActionBarCastActivity extends AppCompatActivity {
+public abstract class ActionBarCastActivity extends AppCompatActivity implements SalutDataCallback, View.OnClickListener {
 
     private static final String TAG = LogHelper.makeLogTag(ActionBarCastActivity.class);
 
     private static final int DELAY_MILLIS = 1000;
+
+    public Button hostingBtn;
+    public Button discoverBtn;
+    public Button disconnectBtn;
+    public SalutServiceData serviceData;
+    public Salut network;
+    public SalutDataReceiver dataReceiver;
+    public static boolean salutusing;
+    public static boolean isHost;
 
     private CastContext mCastContext;
     private MenuItem mMediaRouteMenuItem;
@@ -138,7 +157,16 @@ public abstract class ActionBarCastActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogHelper.d(TAG, "Activity onCreate");
 
-        mCastContext = CastContext.getSharedInstance(this);
+        if(!salutusing)
+            mCastContext = CastContext.getSharedInstance(this);
+                /*Create a data receiver object that will bind the callback
+        with some instantiated object from our app. */
+        dataReceiver = new SalutDataReceiver(this, this);
+
+
+        /*Populate the details for our awesome service. */
+        serviceData = new SalutServiceData("MuSync_Service", 60606,
+                "IMHOST");
     }
 
     @Override
@@ -313,5 +341,144 @@ public abstract class ActionBarCastActivity extends AppCompatActivity {
                     .build();
             overlay.show();
         }
+    }
+
+      /*
+    *
+    *
+    *
+    *
+    *             SETUP NETWORK OBJECT
+    *
+    *
+    *
+    *
+    *
+    * */
+
+    private void setupNetwork()
+    {
+        if(hostingBtn.getText() == "StopService"){
+            if(network.isRunningAsHost){
+                network.disconnectFromDevice();
+                network.forceDisconnect();
+                network.unregisterClient(false);
+                hostingBtn.setText("Start Service");
+                discoverBtn.setAlpha(1f);
+                discoverBtn.setClickable(true);
+            }
+        }
+        if(!network.isRunningAsHost)
+        {
+            network.startNetworkService(new SalutDeviceCallback() {
+                @Override
+                public void call(SalutDevice salutDevice) {
+                    Toast.makeText(getApplicationContext(), "Device: " + salutDevice.instanceName + " connected.", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            hostingBtn.setText("Stop Service");
+            discoverBtn.setAlpha(0.5f);
+            discoverBtn.setClickable(false);
+        }
+    }
+
+    private void discoverServices()
+    {
+        if(!network.isRunningAsHost && !network.isDiscovering)
+        {
+            network.discoverNetworkServices(new SalutCallback() {
+                @Override
+                public void call() {
+                    Toast.makeText(getApplicationContext(), "Device: " + network.foundDevices.get(0).instanceName + " found.", Toast.LENGTH_SHORT).show();
+                    connectDevices(network.foundDevices.get(0));
+                }
+            }, true);
+            discoverBtn.setText("Stop Discovery");
+            hostingBtn.setAlpha(0.5f);
+            hostingBtn.setClickable(false);
+        }
+        else
+        {
+            network.stopServiceDiscovery(true);
+            discoverBtn.setText("Discover Services");
+            hostingBtn.setAlpha(1f);
+            hostingBtn.setClickable(false);
+        }
+    }
+
+    public void connectDevices(SalutDevice foundDevice) {
+        network.registerWithHost(foundDevice, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We're now registered.");
+//                Toast.makeText(getApplicationContext(), "Device connected", Toast.LENGTH_SHORT).show();
+            }
+        }, new SalutCallback() {
+            @Override
+            public void call() {
+                Log.d(TAG, "We failed to register.");
+//                Toast.makeText(getApplicationContext(), "Device Had an Error connecting", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    @Override
+    public void onDataReceived(String song) {
+        //Data Is Received
+        if(song != null)
+            Log.d(TAG, "Song was recieved" + song);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId() == R.id.btnDisconnect)
+        {
+            if(network.thisDevice.isRegistered) {
+                network.unregisterClient(false);
+                Log.e(TAG, "Was registered and is now not");
+            }
+            if(network.isConnectedToAnotherDevice) {
+                network.unregisterClient(false);
+                network.forceDisconnect();
+                network.disconnectFromDevice();
+                Log.e(TAG, "was connected to another device but we killed it.");
+            }
+            Log.e(TAG, "Destroyed connection and unregistered device");
+        }
+        if(!Salut.isWiFiEnabled(getApplicationContext()))
+        {
+            Toast.makeText(getApplicationContext(), "Please enable WiFi first.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(v.getId() == R.id.btnHost)
+        {
+            isHost = true;
+            setupNetwork();
+        }
+        else if(v.getId() == R.id.btnjoin)
+        {
+            isHost = false;
+            discoverServices();
+        }
+    }
+
+    public void makeNetwork()
+    {
+        /*Create an instance of the Salut class, with all of the necessary data from before.
+        * We'll also provide a callback just in case a device doesn't support WiFi Direct, which
+        * Salut will tell us about before we start trying to use methods.*/
+        network = new Salut(dataReceiver, serviceData, new SalutCallback() {
+            @Override
+            public void call() {
+                // wiFiFailureDiag.show();
+                // OR
+                Log.e(TAG, "Sorry, but this device does not support WiFi Direct.");
+            }
+        });
+        if(network != null)
+            Log.e(TAG, "Network has been created");
     }
 }

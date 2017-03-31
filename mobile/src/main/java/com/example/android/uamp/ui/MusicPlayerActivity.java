@@ -32,6 +32,7 @@ import com.example.android.uamp.PhoneSync.SalutMain;
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
 import com.google.gson.Gson;
+import com.peak.salut.Callbacks.SalutCallback;
 
 /**
  * Main activity for the music player.
@@ -100,22 +101,22 @@ public class MusicPlayerActivity extends BaseActivity
     public void onMediaItemSelected(MediaBrowserCompat.MediaItem item) {
         LogHelper.d(TAG, "onMediaItemSelected, mediaId=" + item.getMediaId());
         if (item.isPlayable()) {
-            //get the shared preference from SalutMain
-            SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPref.edit();
-
-            String isHost = sharedPref.getString("IsHost", null);
-            Log.d(TAG, "SharedPref 'isHost' is " + isHost);
-
-
-            if(isHost.equals("Host")) {
-                Log.d(TAG, "Is host");
-
-                editor.putString("songSelected", item.getMediaId());
-                editor.apply();
-
-                String testing = sharedPref.getString("songSelected", null);
-                Log.d(TAG, "test song stored is " + testing);
+//            //get the shared preference from SalutMain
+//            SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = sharedPref.edit();
+//
+//            String isHost = sharedPref.getString("IsHost", null);
+//            Log.d(TAG, "SharedPref 'isHost' is " + isHost);
+//
+//
+//            if(isHost.equals("Host")) {
+//                Log.d(TAG, "Is host");
+//
+//                editor.putString("songSelected", item.getMediaId());
+//                editor.apply();
+//
+//                String testing = sharedPref.getString("songSelected", null);
+//                Log.d(TAG, "test song stored is " + testing);
 
 
                 //send item.getMediaId() to other device
@@ -127,26 +128,27 @@ public class MusicPlayerActivity extends BaseActivity
                 //SalutMain tempSalut = new SalutMain();
 
                 //tempSalut.sendSongOut(item.getMediaId());
+            sendSongOut(item.getMediaId());
+            //freeze
+            getSupportMediaController().getTransportControls()
+                    .playFromMediaId(item.getMediaId(), null);
 
 
-                getSupportMediaController().getTransportControls()
-                        .playFromMediaId(item.getMediaId(), null);
 
 
 
-
-
-            }   else if(isHost.equals("Friend")) {
-                    String receivedSong = sharedPref.getString("receivedSong", null);
-                    getSupportMediaController().getTransportControls()
-                            .playFromMediaId(receivedSong, null);
-
-                Log.d(TAG, "Is friend");
-            } else {
-                Log.d(TAG, "superError");
-
-                //error
-            }
+//            }   else if(isHost.equals("Friend")) {
+//                    String receivedSong = sharedPref.getString("receivedSong", null);
+//                    getSupportMediaController().getTransportControls()
+//                            .playFromMediaId(receivedSong, null);
+//
+//                Log.d(TAG, "Is friend");
+//            }
+//            else {
+//                Log.d(TAG, "superError");
+//
+//                //error
+//            }
         } else if (item.isBrowsable()) {
             Log.i(TAG, "Item is browsble");
             navigateToBrowser(item.getMediaId());
@@ -250,5 +252,25 @@ public class MusicPlayerActivity extends BaseActivity
         getBrowseFragment().onConnected();
     }
 
+    public void sendSongOut(String song) {
+        //Log.d(TAG, "Song recieve: " + song);
 
+
+        Log.d(TAG, "SalutMain got this! : " + song);
+
+        if (network == null)
+            Log.e(TAG, "Network is still null");
+
+        if(network.isRunningAsHost)
+        {
+            Log.e(TAG, "Device is Host ");
+            network.sendToAllDevices(song, new SalutCallback() {
+                public void call() {
+                    Log.e(TAG, "Oh no! The song did not send :(");
+                }
+            });
+        }
+        else
+            Log.e(TAG, "This device is not the host");
+    }
 }

@@ -2,22 +2,40 @@
 <items version="2" >
 
     <item
+        is-multidex="false"
+        jar="C:\MuSync\salut\build\intermediates\bundles\default\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca02fbb33c6bc6a3abf3586d2f89cf68a5cc888b">
+        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\classes_11636ec2dd855b08b92b22c2ea055e112d25cc88.jar" />
+    </item>
+    <item
         is-multidex="true"
-        jar="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jar="C:\MuSync\mobile\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d53b6fda9fc17a821dbea3e8a85c1d639ea16108">
+        <dex dex="C:\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b9c9bfd17418393971b043b609a7ec60a7eca6bb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\MuSync\mobile\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_17639ecce7bc8812e5e63baa580635a2d12bb742/classes.dex" />
+        <dex dex="C:\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_a1231d08baa514326e0e938793762acbef9f29f4\classes.dex" />
     </item>
     <item
-        is-multidex="true"
-        jar="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\loyd\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.0"
-        sha1="c69b1793e39bf9ebb418be41ba4e965282564674">
-        <dex dex="/Users/Matthew/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_aaee9508d12bc7ca466521a661d4a3a40712127f/classes.dex" />
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\gson-2.3.1_b537a8750f148f7bdc7104484005e6b288a926b3.jar" />
     </item>
 
 </items>
