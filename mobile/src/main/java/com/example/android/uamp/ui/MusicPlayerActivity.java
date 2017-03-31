@@ -15,23 +15,17 @@
  */
 package com.example.android.uamp.ui;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.media.MediaBrowserCompat;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.android.uamp.PhoneSync.MediaIdSender;
-import com.example.android.uamp.PhoneSync.SalutMain;
 import com.example.android.uamp.R;
 import com.example.android.uamp.utils.LogHelper;
-import com.google.gson.Gson;
 import com.peak.salut.Callbacks.SalutCallback;
 
 /**
@@ -93,62 +87,20 @@ public class MusicPlayerActivity extends BaseActivity
         super.onSaveInstanceState(outState);
     }
 
-//    interface salutbridge {
-//        void sendSongOut(String myString);
-//    }
-
     @Override
     public void onMediaItemSelected(MediaBrowserCompat.MediaItem item) {
         LogHelper.d(TAG, "onMediaItemSelected, mediaId=" + item.getMediaId());
         if (item.isPlayable()) {
-//            //get the shared preference from SalutMain
-//            SharedPreferences sharedPref = getSharedPreferences("APPLICATION_PREFERENCES", Context.MODE_PRIVATE);
-//            SharedPreferences.Editor editor = sharedPref.edit();
-//
-//            String isHost = sharedPref.getString("IsHost", null);
-//            Log.d(TAG, "SharedPref 'isHost' is " + isHost);
-//
-//
-//            if(isHost.equals("Host")) {
-//                Log.d(TAG, "Is host");
-//
-//                editor.putString("songSelected", item.getMediaId());
-//                editor.apply();
-//
-//                String testing = sharedPref.getString("songSelected", null);
-//                Log.d(TAG, "test song stored is " + testing);
 
-
-                //send item.getMediaId() to other device
-//                if (delegate != null)
-//                {
-//                    delegate.sendSongOut(item.getMediaId());
-//                }
-
-                //SalutMain tempSalut = new SalutMain();
-
-                //tempSalut.sendSongOut(item.getMediaId());
+            //grab the song that was selected and send it to send song out to
+            //send it to another device
             sendSongOut(item.getMediaId());
-            //freeze
+            //freeze the player so it doesn't play yet when we get a response from the player
+            //that it received the message and the latency was this... then we send a play command
+            //and wait the offset of the latency to start play and both devices should start playing
+            //at the same time
             getSupportMediaController().getTransportControls()
                     .playFromMediaId(item.getMediaId(), null);
-
-
-
-
-
-//            }   else if(isHost.equals("Friend")) {
-//                    String receivedSong = sharedPref.getString("receivedSong", null);
-//                    getSupportMediaController().getTransportControls()
-//                            .playFromMediaId(receivedSong, null);
-//
-//                Log.d(TAG, "Is friend");
-//            }
-//            else {
-//                Log.d(TAG, "superError");
-//
-//                //error
-//            }
         } else if (item.isBrowsable()) {
             Log.i(TAG, "Item is browsble");
             navigateToBrowser(item.getMediaId());
@@ -252,12 +204,12 @@ public class MusicPlayerActivity extends BaseActivity
         getBrowseFragment().onConnected();
     }
 
+    /**
+     * This takes a string that is a song and packages/prepares it to be sent to the other phone
+     * that is connected. It uses the method sendToAllDevices from Salut.
+     * @param song
+     */
     public void sendSongOut(String song) {
-        //Log.d(TAG, "Song recieve: " + song);
-
-
-        Log.d(TAG, "SalutMain got this! : " + song);
-
         if (network == null)
             Log.e(TAG, "Network is still null");
 
