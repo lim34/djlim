@@ -60,6 +60,7 @@ public class SalutMain extends ActionBarCastActivity {
         setContentView(R.layout.phonesync_main);
 
 
+        //Setting Buttons on the Main Activity
         hostingBtn = (Button) findViewById(R.id.btnHost);
         discoverBtn = (Button) findViewById(R.id.btnjoin);
         disconnectBtn = (Button) findViewById(R.id.btnDisconnect);
@@ -68,7 +69,7 @@ public class SalutMain extends ActionBarCastActivity {
         discoverBtn.setOnClickListener(this);
         disconnectBtn.setOnClickListener(this);
 
-
+        //Creates an instance of the Salut class, with all of the necessary data from before.
         makeNetwork();
 
         //this is a part of the ActionBarCastActivity and needs to be called.

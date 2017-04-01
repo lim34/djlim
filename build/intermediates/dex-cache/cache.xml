@@ -2,40 +2,229 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="C:\MuSync\salut\build\intermediates\bundles\default\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.0"
-        sha1="ca02fbb33c6bc6a3abf3586d2f89cf68a5cc888b">
-        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\classes_11636ec2dd855b08b92b22c2ea055e112d25cc88.jar" />
-    </item>
-    <item
         is-multidex="true"
-        jar="C:\MuSync\mobile\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jar="/Users/Lim/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.5.1/e2a00ad1d7e540ec395e9296a34da484c8888d4d/jackson-core-2.5.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="d53b6fda9fc17a821dbea3e8a85c1d639ea16108">
-        <dex dex="C:\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_b9c9bfd17418393971b043b609a7ec60a7eca6bb\classes.dex" />
+        sha1="e2a00ad1d7e540ec395e9296a34da484c8888d4d">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/jackson-core-2.5.1_26de7fe26907c89400d6a04da2112ba2049a35d4/classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\MuSync\mobile\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jar="/Users/Lim/.android/build-cache/e853523a33feb3b16c070b0f9355f28e2dbaa38a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3dee4ce5844d39d843d503fb8fe04e51e5bfffac">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6177eeb8cf95b20c3f8df2d1d6a6f21d6c2608c6/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="62fd1b13290f26530c09cdf0189601604b0097d4">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_47ff3ad20dbc977acde9d81a690141bc7bc1ed5f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/93e41fab0267f38cd48f36d987bf678d1fc37651/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a432629397351d3ec7f27a23d258b229b81af08f">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a53541b5859a1297327d7447a763691efe157bcb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.gradle/caches/modules-2/files-2.1/com.bluelinelabs/logansquare/1.3.4/44262279e900a296de2a3af5629bbdd6832d8a52/logansquare-1.3.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="44262279e900a296de2a3af5629bbdd6832d8a52">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/logansquare-1.3.4_1a78893835654cede293225583ca65e96555d5ae/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_6f54c9d1d0d6302a732d3a7ec16edbb49a36bf99/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/5ad9f3076fba690cdbafe3519803dd91bb317209/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5ecb7c85e5db4a206bcd927eb135bf5b9a608b73">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0828ddb3749bb12673f414881ef9ac25e54915a3/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Applications/Android Studio.app/Contents/gradle/m2repository/commons-io/commons-io/2.4/commons-io-2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b1b6ea3b7e4aa4f492509a4952029cd8e48019ad">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/commons-io-2.4_db9d9c7f5dc9abc44c05f9a56b43532b2a4af315/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/24c3b2b22eb6f8137b6cb4b01665548495123eb1/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_09261d3f6aa940b64d69c9a95f2dbb438ea071c2/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/b6e80147ebee466a663f5fcfd57624267d3afe45/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="618485fef3ebe12127f7622abbc9b5b39057b5c2">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f4b0d4dc52e16c44772893cb08e77d15c3c9da4e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/490610b7c3996d95dcf350e3cff5bf977103a35d/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8a36d229011e75f0caef408e1adf0d3fd4d94e02">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_0e786dbd690f28afe5f52e22d60d829a9a0082de/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/3407feb1f0491a1051b57a8d02e473166b3d5ac6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5326d9a850d491714fef8cbfaa9ea3416f0bf0d2">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b0e6d4bd9665d93f05a6279f98a47bab99e29851/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/5ad9f3076fba690cdbafe3519803dd91bb317209/output/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0ea721fb076ab16ecc25d5c2adf6266d6732bea2">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_0e0929b9967a2ae40123073ccb8f8cea6cfe4846/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/2f46cf27e506d6578208446b350ac39fb7497a7a/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03829a2618892d438a1f59c6286699ca1f476e93">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_c405f02bd3d8c724e39a6d505eeb786eaf04b57e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/8bcc46bb764743acf9fb273c70221b1d32644660/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e7f34fa08ee9266e4036e426391ca9046f8bfd02/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/b92db26ecdc9066761135d918479ca905e245964/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c67e97e8c6f9d5fd75a479be5a7daa19647a5759">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_42bede4b08763eacf26ca167b358b6b60c68ba92/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.3.1_7f45d0525a847553ff557b1fa1ebc1c2f0761cd8/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/8bcc46bb764743acf9fb273c70221b1d32644660/output/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_377b14989fe0c144346813b35afdb12d642293bb/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.0"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
-        <dex dex="C:\MuSync\mobile\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_a1231d08baa514326e0e938793762acbef9f29f4\classes.dex" />
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_26ee21b5cdf41d3c8bc816df0f5e59eacc979639/classes.dex" />
     </item>
     <item
-        is-multidex="false"
-        jar="C:\Users\loyd\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/4813d022e3df14d14cbbaea224330504b20f35b5/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.0"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\MuSync\mobile\build\intermediates\pre-dexed\debug\gson-2.3.1_b537a8750f148f7bdc7104484005e6b288a926b3.jar" />
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_155f20fc81005bb218e848730a23bd1c52c1469d/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/36ae6510ff78be2539261a3f6e4526d1abde6a90/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1f39eebb6121fe40bfefba03e9617d71143e0170/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/2503e8150de6a58cba714cf91425526f5da51d22/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ec75036c3c52e451d0cde50a5aedaf5fd32354a0">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_b87f1e34a433212a57220a0fa43eaacd0604a8cc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/da9755d195fee2c23740d6036481d2c484729ee6/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51518e8e8f97c314a243d9def0ded91d385b6a1e">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_51d56b65e6a8ca38437e9864b21a2de5359a951e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/cd55cc2a1f82cbd488fc79e07c9262e8f4e448b1/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d9ecde39b460470e655de6e47c05573d2d5a8bfb">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f1331918b666a145c2ad676ed7fa83b024525f1f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Lim/.android/build-cache/b3abf4e1a3113b7e7a4560c40f8fbb2774e1d133/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98f7825e3a39e949ed0cb790326d1f584ab8fcc1">
+        <dex dex="/Users/Lim/AndroidStudioProjects/MuSync/mobile/build/intermediates/transforms/dex/debug/folders/1000/10/classes_a8550398a3247b1c7ae2101961a724580efc73de/classes.dex" />
     </item>
 
 </items>

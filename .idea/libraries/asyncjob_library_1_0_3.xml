@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="asyncjob-library-1.0.3">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/53b43e10b86d02da3d412f518b341a3708ab324a/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/53b43e10b86d02da3d412f518b341a3708ab324a/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/b92db26ecdc9066761135d918479ca905e245964/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/b92db26ecdc9066761135d918479ca905e245964/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
