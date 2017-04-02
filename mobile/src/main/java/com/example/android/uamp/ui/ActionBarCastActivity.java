@@ -102,6 +102,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         }
     };
 
+    //our Drawer Listener
     private final DrawerLayout.DrawerListener mDrawerListener = new DrawerLayout.DrawerListener() {
         @Override
         public void onDrawerClosed(View drawerView) {
@@ -263,6 +264,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         mToolbar.setTitle(titleId);
     }
 
+    //creates our toolbar
     protected void initializeToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar == null) {
@@ -293,6 +295,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         mToolbarInitialized = true;
     }
 
+    //places items into our menu drawer
     private void populateDrawerItems(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
@@ -311,6 +314,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         }
     }
 
+    //responsible for updating our home screen buttons to be enabled or disabled.
     protected void updateDrawerToggle() {
         if (mDrawerToggle == null) {
             return;
@@ -356,6 +360,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
     *
     * */
 
+      //Setup Network function is responsible for starting or stopping our network service.
     private void setupNetwork()
     {
         if(hostingBtn.getText() == "StopService"){
@@ -383,6 +388,10 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         }
     }
 
+    /*
+    This function is responsible for checking if you are
+    the host or not, then making yourself discoverable.
+     */
     private void discoverServices()
     {
         if(!network.isRunningAsHost && !network.isDiscovering)
@@ -408,6 +417,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         }
     }
 
+    //registers a conneciton between this device and the found device
     public void connectDevices(SalutDevice foundDevice) {
         network.registerWithHost(foundDevice, new SalutCallback() {
             @Override
@@ -422,6 +432,10 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         });
     }
 
+    /*
+    Data is received via a String. The string passed in
+    should be the item.getMediaId() from MusicPlayerActivity.java
+    */
     @Override
     public void onDataReceived(String song) {
         //Data Is Received
@@ -471,6 +485,7 @@ public abstract class ActionBarCastActivity extends AppCompatActivity implements
         }
     }
 
+    //Function to create a network on host device.
     public void makeNetwork()
     {
         /*Create an instance of the Salut class, with all of the necessary data from before.

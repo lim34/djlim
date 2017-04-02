@@ -94,7 +94,9 @@ public class MusicPlayerActivity extends BaseActivity
 
             //grab the song that was selected and send it to send song out to
             //send it to another device
+
             sendSongOut(item.getMediaId());
+
             //freeze the player so it doesn't play yet when we get a response from the player
             //that it received the message and the latency was this... then we send a play command
             //and wait the offset of the latency to start play and both devices should start playing
@@ -210,8 +212,10 @@ public class MusicPlayerActivity extends BaseActivity
      * @param song
      */
     public void sendSongOut(String song) {
-        if (network == null)
+        if (network == null) {
             Log.e(TAG, "Network is still null");
+            return;
+        }
 
         if(network.isRunningAsHost)
         {
